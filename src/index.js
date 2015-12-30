@@ -3,10 +3,6 @@
 import MapContainer from './map/MapContainer';
 
 import {
-  default as Vector
-} from './map/Vector';
-
-import {
   default as PolygonSet
 } from './map/PolygonSet';
 
@@ -62,15 +58,11 @@ import {
   tileFunc
 } from './map/core/TileFunc';
 
-import {
-  default as tile
-} from './map/core/Tile'
-
 export default {
 
-  MapContainer, Vector, PolygonSet, Maps,
+  MapContainer, PolygonSet, Maps,
 
   Svg, Title, Container, Polygon, Popup, ZoomControl, geoPath, projection,
 
-  tileFunc, scale, isTooltipUpdate, tile
+  tileFunc, scale, isTooltipUpdate
 };

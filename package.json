@@ -28,7 +28,8 @@
     "invariant": "^2.0.0",
     "ramda": "^0.18.0",
     "react-addons-create-fragment": "^0.14.2",
-    "react-addons-pure-render-mixin": "^0.14.2"
+    "react-addons-pure-render-mixin": "^0.14.2",
+    "immutable": "^3.7.5"
   },
   "devDependencies": {
     "raf": "^3.1.0",
