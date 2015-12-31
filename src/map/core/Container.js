@@ -1,25 +1,16 @@
 "use strict";
 
-import {
-  default as React,
-  Component,
-} from 'react';
-
-import d3 from 'd3';
-
-import {
-  default as Svg
-} from './Svg';
-
-import {
-  default as Title
-} from './Title';
-
-import {
-  isTooltipUpdate
-} from './TooltipUpdate';
+import React, {Component, PropTypes} from 'react';
+import Svg from './Svg';
+import Title from './Title';
+import {isTooltipUpdate} from './TooltipUpdate';
 
 export default class Container extends Component {
+  static propTypes = {
+    width: PropTypes.number,
+    title: PropTypes.string,
+  };
+
   constructor(props) {
     super (props);
   }

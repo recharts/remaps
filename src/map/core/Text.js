@@ -1,23 +1,20 @@
 "use strict";
 
-import {
-  default as React,
-  Component,
-  PropTypes
-} from 'react';
+import React, {Component, PropTypes} from 'react';
 
 export default class Text extends Component {
-  constructor(props) {
-    super (props);
-  }
+  static propTypes = {
+    geoData: PropTypes.object,
+    textClass: PropTypes.string,
+    projection: PropTypes.func,
+  };
 
   static defaultProps = {
     textClass: 'remaps-core__text'
-  }
+  };
 
-  static propTypes = {
-    geoData: PropTypes.object.isRequired,
-    textClass: PropTypes.string
+  constructor(props) {
+    super (props);
   }
 
   render () {

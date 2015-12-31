@@ -1,40 +1,27 @@
 "use strict"
 
-import {
-  default as React,
-  Component,
-  PropTypes
-} from 'react';
-
-import {
-  default as Container,
-} from './core/Container';
-import {
-  Projection as projectionFunc,
-} from './core/Projection';
-import {
-  GeoPath,
-} from './core/GeoPath';
-import {
-  TileFunc,
-} from './core/TileFunc';
-import {
-  default as ZoomControl,
-} from './core/ZoomControl';
-
-import {
-  default as CommonProps,
-} from './CommonProps';
-
+import React, {Component, PropTypes} from 'react';
+import Container from './core/Container';
+import {Projection as projectionFunc} from './core/Projection';
+import {GeoPath} from './core/GeoPath';
+import {TileFunc} from './core/TileFunc';
+import ZoomControl from './core/ZoomControl';
+import CommonProps from './CommonProps';
 import ChinaGeoOpt from '../data/china';
-
-import {
-  default as Shoot
-} from './Shoot';
+import Shoot from './Shoot';
 
 export default class MapContainer extends Component {
+  static childContextTypes = {
+    width: React.PropTypes.number,
+    height: React.PropTypes.number,
+    geoPath: React.PropTypes.func,
+    projection: React.PropTypes.func,
+    mapName: React.PropTypes.string,
+    shootData: React.PropTypes.array,
+    finish: React.PropTypes.bool
+  }
 
-  static defaultProps = CommonProps
+  static defaultProps = CommonProps;
 
   constructor(props) {
     super(props);
@@ -48,16 +35,6 @@ export default class MapContainer extends Component {
       times: 1,
       finish: false
     };
-  }
-
-  static childContextTypes = {
-    width: React.PropTypes.number.isRequired,
-    height: React.PropTypes.number.isRequired,
-    geoPath: React.PropTypes.func.isRequired,
-    projection: React.PropTypes.func.isRequired,
-    mapName: React.PropTypes.string.isRequired,
-    shootData: React.PropTypes.array,
-    finish: React.PropTypes.bool,
   }
 
   getChildContext() {

@@ -1,40 +1,29 @@
 "use strict";
 
-import {
-  default as React,
-  Component,
-  PropTypes,
-} from 'react';
-
+import React, {Component, PropTypes} from 'react';
+import ReactDOM from 'react-dom'
 import d3 from 'd3';
-
-import {
-  default as CommonProps,
-} from '../CommonProps';
-
-import {
-  default as ReactDOM
-} from 'react-dom'
+import CommonProps from '../CommonProps';
 
 export default class Svg extends Component {
-  constructor(props) {
-    super (props);
-  }
+  static propTypes = {
+    id: PropTypes.string,
+    width: PropTypes.number,
+    height: PropTypes.number,
+    svgClassName: PropTypes.string
+  };
 
   static defaultProps = Object.assign(CommonProps, {
     svgClassName: 'remaps-core__container_svg',
     scaleExtent: [1 << 12, 1 << 28]
-  })
+  });
 
-  static propTypes = {
-    id: PropTypes.string,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    svgClassName: PropTypes.string.isRequired
+  constructor(props) {
+    super (props);
   }
 
   componentDidMount() {
-    var {
+    const {
       width,
       height,
       scaleExtent,

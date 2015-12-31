@@ -1,14 +1,7 @@
 "use strict"
 
-import {
-  default as React,
-  Component,
-  PropTypes
-} from 'react'
-
-import {
-  default as Text,
-} from './core/Text';
+import React, {Component, PropTypes} from 'react';
+import Text from './core/Text';
 
 export default class TextSet extends Component {
 

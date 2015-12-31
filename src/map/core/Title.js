@@ -1,20 +1,16 @@
 "use strict";
 
-import {
-  default as React,
-  Component,
-  PropTypes,
-} from 'react';
+import React, {Component, PropTypes} from 'react';
 
 export default class Title extends Component {
-  constructor(props) {
-    super (props);
-  }
-
   static propTypes = {
-    width: PropTypes.number.isRequired,
+    width: PropTypes.number,
     title: PropTypes.string,
     titleClassName: PropTypes.string
+  };
+
+  constructor(props) {
+    super (props);
   }
 
   render() {

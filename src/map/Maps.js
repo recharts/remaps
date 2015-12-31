@@ -1,50 +1,17 @@
 "use strict"
 
-import {
-  default as React,
-  Component,
-  PropTypes
-} from 'react';
-
-import {
-  OrderedMap,
-  Map
-} from 'immutable';
-
+import React, {Component, PropTypes} from 'react';
+import {OrderedMap, Map} from 'immutable';
 import ChinaData from '../data/geojson/0';
 import ProvinceData from '../data/geojson/1';
-
-import {
-  default as Popup,
-} from './core/Popup';
-
-import {
-  default as SouthSea,
-} from './core/SouthSea';
-
-import {
-  default as Legend,
-} from './core/Legend';
-
-import {
-  default as PolygonSet
-} from './PolygonSet';
-
-import {
-  default as TextSet
-} from './TextSet';
-
+import Popup from './core/Popup';
+import SouthSea from './core/SouthSea';
+import Legend from './core/Legend';
+import PolygonSet from './PolygonSet';
+import TextSet from './TextSet';
 import ChinaGeoOpt from '../data/china';
 
 export default class Maps extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      showPopup: OrderedMap()
-    }
-  }
-
   static contextTypes = {
     width: React.PropTypes.number.isRequired,
     height: React.PropTypes.number.isRequired,
@@ -53,40 +20,15 @@ export default class Maps extends Component {
     mapName: React.PropTypes.string.isRequired,
     shootData: React.PropTypes.array,
     finish: React.PropTypes.bool,
+  };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showPopup: OrderedMap()
+    }
   }
-
-  // _onClick(that, d, id) {
-  //   var {
-  //     showPopup
-  //   } = this.state;
-
-  //   const {
-  //     onClick
-  //   } = this.props;
-
-  //   const {
-  //     projection
-  //   } = this.context;
-
-  //   if(onClick) onClick(that, d, id);
-
-  //   if(showPopup.keySeq().toArray().indexOf(id) !== -1) {
-  //     // hide popup
-  //     var newPopup = showPopup.delete(id);
-  //   } else {
-  //     // add a popup
-  //     var position = projection.invert([d3.event.clientX, d3.event.clientY]);
-  //     var newPopup = showPopup.set(id, Map({
-  //       xPopup: position[0],
-  //       yPopup: position[1],
-  //       data: d
-  //     }));
-  //   }
-
-  //   this.setState({
-  //     showPopup: newPopup
-  //   })
-  // }
 
   _onMouseOver(that, d, id, xy) {
 
@@ -198,8 +140,6 @@ export default class Maps extends Component {
       geoPath,
       projection
     } = this.context;
-
-    // let onClick = this._onClick.bind(this);
 
     let onMouseOver = this._onMouseOver.bind(this);
 

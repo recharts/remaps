@@ -17,5 +17,4 @@ export function GeoPath(proj, props) {
     geoPath.pointRadius(pointRadius)
 
   return geoPath;
-
 }

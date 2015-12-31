@@ -1,12 +1,16 @@
 "use strict";
 
-import {
-  default as React,
-  Component,
-  PropTypes
-} from 'react';
+import React, {Component, PropTypes} from 'react';
 
-export default class SouthSea extends Component {
+export default class Legend extends Component {
+  static propTypes = {
+    width: PropTypes.number,
+    height: PropTypes.number,
+    legendText: PropTypes.string,
+    defaultColor: PropTypes.string,
+    colorArr: PropTypes.array,
+  };
+
   constructor(props) {
     super (props);
   }
@@ -43,5 +47,4 @@ export default class SouthSea extends Component {
       </g>
     )
   }
-
 }

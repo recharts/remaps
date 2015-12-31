@@ -1,16 +1,12 @@
 "use strict"
 
-import {
-  default as React,
-  Component,
-  PropTypes
-} from 'react';
+import React, {Component, PropTypes} from 'react';
+import Polygon from './core/Polygon';
 
-import {
-  default as Polygon,
-} from './core/Polygon';
-
-export default class PolygonCollection extends Component {
+export default class PolygonSet extends Component {
+  constructor(props) {
+    super(props);
+  }
 
   render() {
     const {

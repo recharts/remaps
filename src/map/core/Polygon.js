@@ -1,44 +1,32 @@
 "use strict";
 
-import {
-  default as React,
-  Component,
-  PropTypes
-} from 'react';
-
-import d3 from 'd3';
-
-import {
-  isTooltipUpdate
-} from './TooltipUpdate';
-
-import {
-  OrderedMap,
-  Map
-} from 'immutable';
-
-import {
-  default as Popup,
-} from './Popup';
-
+import React, {Component, PropTypes} from 'react';
+import {isTooltipUpdate} from './TooltipUpdate';
+import {OrderedMap, Map} from 'immutable';
+import Popup from './Popup';
 
 export default class Polygon extends Component {
+  static propTypes = {
+    color: PropTypes.string,
+    polygonClass: PropTypes.string,
+    onMouseOut: PropTypes.func,
+    onMouseOver: PropTypes.func,
+    geoData: PropTypes.object,
+    geoPath: PropTypes.func,
+    polygonClass: PropTypes.string
+    // onClick
+  };
+
+  static defaultProps = {
+    polygonClass: 'remaps-core__polygon'
+  };
+
   constructor(props) {
     super (props);
 
     this.state = {
       fill: this.props.color
     }
-  }
-
-  static defaultProps = {
-    polygonClass: 'remaps-core__polygon'
-  }
-
-  static propTypes = {
-    geoData: PropTypes.object.isRequired,
-    geoPath: PropTypes.func.isRequired,
-    polygonClass: PropTypes.string
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -87,8 +75,7 @@ export default class Polygon extends Component {
       id,
       color,
       onMouseOut,
-      onMouseOver,
-      onClick
+      // onClick
     } = this.props;
 
     this.setState({
@@ -105,10 +92,9 @@ export default class Polygon extends Component {
       geoData,
       polygonClass,
       geoPath,
-      projection,
       onMouseOut,
       onMouseOver,
-      onClick
+      // onClick
     } = this.props;
 
     const {fill} = this.state;

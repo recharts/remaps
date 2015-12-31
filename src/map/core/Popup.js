@@ -1,21 +1,27 @@
 "use strict";
 
-import {
-  default as React,
-  Component,
-  PropTypes,
-} from 'react';
+import React, {Component, PropTypes} from 'react';
 
 let clientHeight = 0;
 
 export default class Popup extends Component {
-  constructor (props) {
-    super(props);
-  }
+  static propTypes = {
+    x: PropTypes.number,
+    y: PropTypes.number,
+    contentPopup: PropTypes.element,
+    mapWidth: PropTypes.number,
+    mapHeight: PropTypes.number,
+    width: PropTypes.number,
+    height: PropTypes.number
+  };
 
   static defaultProps = {
     width: 200,
     height: 50
+  };
+
+  constructor (props) {
+    super(props);
   }
 
   componentDidMount() {
@@ -80,7 +86,6 @@ export default class Popup extends Component {
         {contentPopup}
       </div>
     )
-
   }
 
   render() {
@@ -92,8 +97,6 @@ export default class Popup extends Component {
       mapHeight,
       width,
       height,
-      closeClick,
-      id
     } = this.props;
 
     let cvContent;

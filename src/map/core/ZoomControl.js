@@ -1,19 +1,22 @@
 "use strict"
 
-import {
-  default as React,
-  Component,
-  PropTypes
-} from 'react';
+import React, {Component, PropTypes} from 'react';
 
 export default class ZoomControl extends Component {
-  constructor (props) {
-    super(props);
-  }
+  static propTypes = {
+    top: PropTypes.number,
+    left: PropTypes.number,
+    zoomInClick: PropTypes.func,
+    zoomOutClick: PropTypes.func
+  };
 
   static defaultProps = {
     left: 0,
     top: 0
+  };
+
+  constructor (props) {
+    super(props);
   }
 
   render() {

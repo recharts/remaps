@@ -1,10 +1,6 @@
 "use strict";
 
-import d3 from 'd3';
-
-import {
-  default as tile
-} from './d3.geo.tile.js';
+import {tile} from './d3.geo.tile.js';
 
 export function TileFunc (props) {
   const {

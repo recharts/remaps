@@ -1,13 +1,7 @@
 "use strict"
 
-import {
-  default as React,
-  Component,
-  PropTypes
-} from 'react';
-
+import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-
 import d3 from 'd3';
 
 let requestFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame;
