@@ -33,7 +33,7 @@ const App = React.createClass({
 
     return (
       <div className='component-list-wrapper'>
-        <p className='title'>组件列表</p>
+        <p className='title'>地图组件 demo （中国地图、可缩放拖拽地图、省份地图）</p>
         {items}
       </div>
     );
