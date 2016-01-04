@@ -8,7 +8,6 @@ export default class TextSet extends Component {
   render() {
     const {
       geoData,
-      textClass,
       projection
     } = this.props;
 
@@ -34,11 +33,9 @@ export default class TextSet extends Component {
       texts = textData.map((d, i) => {
         return (
           <Text
-            id= {'remaps__text' + i}
-            key= {'remaps__text' + i}
+            key= {'remaps_text' + i}
             geoData= {d}
             projection= {projection}
-            textClass= {textClass}
           />
         )
       })

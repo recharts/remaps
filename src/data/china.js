@@ -8,7 +8,7 @@ var chinaData = {
   // 省的索引，包含经纬度和全名信息
   provinceIndex: {
     // 1 << 12: 4096; 1 << 13: 8192; 1 << 14: 16384; 1 << 15: 32768;
-    '中国': {scale: 3000, center: [105, 35.666], pole: [0,0], fullName: '中国', index: -1},
+    '中国': {scale: 3000, center: [105.012,37.566], pole: [0,0], fullName: '中国', index: -1},
     '甘肃': {scale: 10000, center: [100.7129,38.166], pole: [98.1738,39.8035], fullName: '甘肃', index: 0},
     '青海': {scale: 12000, center: [96.2402,35.4199], pole: [93.5925,33.9368], fullName: '青海', index: 1},
     '广西': {scale: 22500, center: [108.2813,23.6426], pole: [110.5554,25.318], fullName: '广西', index: 2},

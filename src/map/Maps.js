@@ -18,8 +18,17 @@ export default class Maps extends Component {
     geoPath: React.PropTypes.func.isRequired,
     projection: React.PropTypes.func.isRequired,
     mapName: React.PropTypes.string.isRequired,
+    data: React.PropTypes.array,
     shootData: React.PropTypes.array,
     finish: React.PropTypes.bool,
+    popupContent: React.PropTypes.func
+  };
+
+  static defaultProps = {
+    nameKey: 'name',
+    valueKey: 'value',
+    hasName: false,
+    hasLegend: false
   };
 
   constructor(props) {
@@ -118,17 +127,17 @@ export default class Maps extends Component {
 
     const {
       data,
+      nameKey,
+      valueKey,
       defaultColor,
       hoverColor,
       colorArr,
       shootColor,
       type,
       hasLegend,
-      legendText,
+      legendPos,
       hasName,
-      popupContent,
-      polygonClass,
-      textClass
+      popupContent
     } = this.props;
 
     const {
@@ -143,7 +152,7 @@ export default class Maps extends Component {
 
     let onMouseOver = this._onMouseOver.bind(this);
 
-    let onMouseMove = this._onMouseMove.bind(this);
+    // let onMouseMove = this._onMouseMove.bind(this);
 
     let onMouseOut = this._onMouseOut.bind(this);
 
@@ -185,7 +194,9 @@ export default class Maps extends Component {
       <g className='Maps'>
         <PolygonSet
           className= 'PolygonSet'
-          data= {data}
+          data= {data ? data : []}
+          nameKey= {nameKey}
+          valueKey= {valueKey}
           shootData= {shootData}
           shootFinish= {finish}
           defaultColor= {defaultColor}
@@ -196,9 +207,8 @@ export default class Maps extends Component {
           geoData= {geoData}
           geoPath= {geoPath}
           onMouseOver= {onMouseOver}
-          onMouseMove= {onMouseMove}
+          // onMouseMove= {onMouseMove}
           onMouseOut= {onMouseOut}
-          polygonClass= {polygonClass}
           {...this.state}
         />
 
@@ -207,7 +217,7 @@ export default class Maps extends Component {
                   height= {height}
                   defaultColor= {defaultColor}
                   colorArr= {colorArr}
-                  legendText= {legendText} /> :
+                  legendPos= {legendPos} /> :
           null
         }
 
@@ -222,7 +232,6 @@ export default class Maps extends Component {
               className= 'TextSet'
               projection= {projection}
               geoData= {geoData}
-              textClass= {textClass}
               {...this.state}
             /> :
             null

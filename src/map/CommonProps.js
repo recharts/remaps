@@ -1,10 +1,10 @@
 "use strict";
 
 export default {
-  width: 960,
-  height: 600,
+  width: 600,
+  // height: 600,
   projection: 'mercator',
-  // projection: 'albers',
+  mapName: '中国',
   simplify: true,
   simplifyArea: 0,
   scale: 1 << 12,

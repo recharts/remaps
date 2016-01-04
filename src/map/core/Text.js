@@ -5,12 +5,7 @@ import React, {Component, PropTypes} from 'react';
 export default class Text extends Component {
   static propTypes = {
     geoData: PropTypes.object,
-    textClass: PropTypes.string,
     projection: PropTypes.func,
-  };
-
-  static defaultProps = {
-    textClass: 'remaps-core__text'
   };
 
   constructor(props) {
@@ -21,7 +16,6 @@ export default class Text extends Component {
     const {
       id,
       geoData,
-      textClass,
       projection
     } = this.props;
 

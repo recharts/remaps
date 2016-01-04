@@ -69,9 +69,9 @@ export default class ZoomControl extends Component {
     }
 
     return (
-      <div className="remaps__zoom-control" style= {zoomControlStyle}>
-        <a className="remaps__zoom-control__zoom-in" style={zoomInStyle} onClick={zoomInClick}>+</a>
-        <a className="remaps__zoom-control__zoom-out" style={zoomOutStyle} onClick={zoomOutClick}>-</a>
+      <div className="remaps_zoomControl" style= {zoomControlStyle}>
+        <a className="remaps_zoomIn" style={zoomInStyle} onClick={zoomInClick}>+</a>
+        <a className="remaps_zoomOut" style={zoomOutStyle} onClick={zoomOutClick}>-</a>
       </div>
     )
   }

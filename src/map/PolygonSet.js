@@ -11,6 +11,8 @@ export default class PolygonSet extends Component {
   render() {
     const {
       data,
+      nameKey,
+      valueKey,
       defaultColor,
       hoverColor,
       shootColor,
@@ -20,15 +22,15 @@ export default class PolygonSet extends Component {
       projection,
       onClick,
       onMouseOver,
-      onMouseMove,
+      // onMouseMove,
       onMouseOut,
-      polygonClass,
       shootFinish,
       shootData
     } = this.props;
 
     let tempDataArr = [];
     let polygons, polygonData, maxData, minData, color, temp;
+    let hasDefaultColor = true;
 
     if(geoData.type === 'FeatureCollection') {
       polygonData = [];
@@ -46,26 +48,39 @@ export default class PolygonSet extends Component {
       if(!Array.isArray(polygonData))
         polygonData = [polygonData];
 
-      maxData = polygonData.map((d, i) => {
-        if (data[d.properties.name]) {
-          tempDataArr.push(data[d.properties.name].value);
-        }
+      if (data.length > 0) {
+        maxData = polygonData.map((d, i) => {
+          data.forEach(function(item) {
+            if (item[nameKey] === d.properties.name) {
+              tempDataArr.push(item[valueKey]);
+            }
+          })
 
-        return tempDataArr;
-      })
+          return tempDataArr;
+        })
 
-      maxData = Math.max.apply(null, tempDataArr);
-      minData = Math.min.apply(null, tempDataArr);
+        maxData = Math.max.apply(null, tempDataArr);
+        minData = Math.min.apply(null, tempDataArr);
+      }
 
       polygons = polygonData.map((d, i) => {
         let oldColor;
 
-        if (data[d.properties.name]) {
-          temp = Math.floor((colorArr.length - 1) * (data[d.properties.name].value - minData) / (maxData - minData));
-          color = colorArr[temp];
-        } else {
+        if (data.length > 0) {
+          data.map(item => {
+            if (item[nameKey] === d.properties.name) {
+              hasDefaultColor = false;
+              temp = Math.floor((colorArr.length - 1) * (item[valueKey] - minData) / (maxData - minData));
+              color = colorArr[temp];
+            }
+          })
+        }
+
+        if (hasDefaultColor) {
           color = defaultColor;
         }
+
+        hasDefaultColor = true;
 
         oldColor = color;
 
@@ -81,8 +96,7 @@ export default class PolygonSet extends Component {
 
         return (
           <Polygon
-            id= {'remaps__polygon' + i}
-            key= {'remaps__polygon' + i}
+            key= {'remaps_polygon' + i}
             color= {color}
             hoverColor= {hoverColor}
             projection= {projection}
@@ -90,9 +104,8 @@ export default class PolygonSet extends Component {
             geoPath= {geoPath}
             onClick= {onClick}
             onMouseOver= {onMouseOver}
-            onMouseMove= {onMouseMove}
+            // onMouseMove= {onMouseMove}
             onMouseOut= {onMouseOut}
-            polygonClass= {polygonClass}
           />
         )
       })

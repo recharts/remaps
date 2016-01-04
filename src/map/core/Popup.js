@@ -8,7 +8,7 @@ export default class Popup extends Component {
   static propTypes = {
     x: PropTypes.number,
     y: PropTypes.number,
-    contentPopup: PropTypes.element,
+    contentPopup: PropTypes.array,
     mapWidth: PropTypes.number,
     mapHeight: PropTypes.number,
     width: PropTypes.number,
@@ -120,7 +120,7 @@ export default class Popup extends Component {
 
     return (
       <g style={popupGroupStyle}
-        className= "remaps__popup_utils"
+        className= "remaps_popup"
         ref= "popup"
         >
 
@@ -131,7 +131,7 @@ export default class Popup extends Component {
             width= {width}
             height= {height}
           >
-            <div className= "remaps__popup__content-wrapper" style={popupStyle} ref="popupContentWrapper">
+            <div className= "remaps_popup_contentWrapper" style={popupStyle} ref="popupContentWrapper">
               {cvContent}
             </div>
           </foreignObject>

@@ -6,9 +6,9 @@ export default class Legend extends Component {
   static propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
-    legendText: PropTypes.string,
     defaultColor: PropTypes.string,
     colorArr: PropTypes.array,
+    legendPos: PropTypes.array
   };
 
   constructor(props) {
@@ -20,30 +20,34 @@ export default class Legend extends Component {
       width,
       height,
       colorArr,
-      legendText,
       defaultColor,
+      legendPos
     } = this.props;
 
-    let legendWidth;
+    let legendWidth, legendX, legendY;
+
+    if (legendPos) {
+      legendX = legendPos[0];
+      legendY = legendPos[1];
+    } else {
+      legendX = 50;
+      legendY = 50;
+    }
 
     let legends = colorArr.map((d, i) => {
       legendWidth = i * 20;
 
       return (
         <rect key={'legend' + i} width="20" height="15" fill={d}
-              transform={"translate(" + (50 + i * 20) + "," + (height - 50) + ")"} />
+              transform={"translate(" + (legendX + i * 20) + "," + (height - legendY) + ")"} />
       )
     })
 
     return (
-      <g id="legends">
-        <text fill={defaultColor} transform={"translate(25," + (height - 38) + ")"}>低</text>
+      <g clsssName="legends">
+        <text fill={defaultColor} transform={"translate(" + (legendX - 25) + "," + (height - legendY + 12) + ")"}>低</text>
         {legends}
-        <text fill={defaultColor} transform={"translate(" + (75 + legendWidth) + "," + (height - 38) + ")"}>高</text>
-        {legendText ?
-          <text fill={defaultColor} transform={"translate(25," + (height - 15) + ")"}>{legendText}</text> :
-          null
-        }
+        <text fill={defaultColor} transform={"translate(" + (legendX + 25 + legendWidth) + "," + (height - legendY + 12) + ")"}>高</text>
       </g>
     )
   }

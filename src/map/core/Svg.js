@@ -7,14 +7,13 @@ import CommonProps from '../CommonProps';
 
 export default class Svg extends Component {
   static propTypes = {
-    id: PropTypes.string,
     width: PropTypes.number,
     height: PropTypes.number,
     svgClassName: PropTypes.string
   };
 
   static defaultProps = Object.assign(CommonProps, {
-    svgClassName: 'remaps-core__container_svg',
+    svgClassName: 'remaps_container_svg',
     scaleExtent: [1 << 12, 1 << 28]
   });
 
@@ -34,14 +33,13 @@ export default class Svg extends Component {
       center
     } = this.props;
 
-
     // implement zoom if xscale and y scale is set!
     if(projection && onZoom) {
-      let center = projection(center);
+      let newCenter = projection(center);
 
       let zoom = d3.behavior.zoom()
         .scale(projection.scale() * 2 * Math.PI)
-        .translate([width - center[0], height - center[1]])
+        .translate([width - newCenter[0], height - newCenter[1]])
 
       if(scaleExtent)
         zoom.scaleExtent(scaleExtent);
@@ -65,7 +63,6 @@ export default class Svg extends Component {
       height,
       width,
       svgClassName,
-      id,
       children
     } = this.props;
 

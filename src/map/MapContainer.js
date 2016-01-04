@@ -19,9 +19,17 @@ export default class MapContainer extends Component {
     mapName: React.PropTypes.string,
     shootData: React.PropTypes.array,
     finish: React.PropTypes.bool
-  }
+  };
 
-  static defaultProps = CommonProps;
+  static defaultProps = {
+    width: 600,
+    projection: 'mercator',
+    mapName: '',
+    simplify: true,
+    simplifyArea: 0,
+    // scale: 1 << 12,
+    // scaleExtent: [1 << 10, 1 << 14],
+  };
 
   constructor(props) {
     super(props);
@@ -30,7 +38,7 @@ export default class MapContainer extends Component {
       // 移动
       zoomTranslate: null,
       // 比例尺-缩放
-      scale: this.props.width * ChinaGeoOpt.provinceIndex[this.props.mapName].scale / 600,
+      scale: null,
       // 缩放频率
       times: 1,
       finish: false
@@ -49,11 +57,29 @@ export default class MapContainer extends Component {
     };
   }
 
+  componentWillMount() {
+    if (ChinaGeoOpt.provinceIndex[this.props.mapName]) {
+      this.setState({
+        scale: this.props.width * ChinaGeoOpt.provinceIndex[this.props.mapName].scale / 600,
+      });
+    } else {
+      this.setState({
+        scale: null
+      });
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.mapName !== this.props.mapName) {
-      this.setState({
-        scale: this.props.width * ChinaGeoOpt.provinceIndex[nextProps.mapName].scale / 600
-      });
+      if (ChinaGeoOpt.provinceIndex[nextProps.mapName]) {
+        this.setState({
+          scale: this.props.width * ChinaGeoOpt.provinceIndex[nextProps.mapName].scale / 600,
+        });
+      } else {
+        this.setState({
+          scale: null
+        });
+      }
     }
   }
 
@@ -98,6 +124,7 @@ export default class MapContainer extends Component {
     } = this.state;
 
     const {
+      className,
       width,
       zoom,
       mapName,
@@ -113,6 +140,28 @@ export default class MapContainer extends Component {
 
     let height = width * 3 / 4;
 
+    let styleContainer = {
+      position: 'relative',
+      border: '1px solid #000',
+      backgroundColor: '#fff',
+      width: width,
+      height: height
+    };
+
+    let styleWarning = {
+      position: 'absolute',
+      top: height / 2 - 25,
+      left: width / 2 - 150,
+    }
+
+    if (!scale) {
+      return (
+        <div id="mapContainer" className={className} style= {styleContainer}>
+          <p className="Warning" style= {styleWarning}>目前暂只支持中国以及中国各省份的地图！</p>
+        </div>
+      )
+    }
+
     const center = ChinaGeoOpt.provinceIndex[mapName].center;
 
     let onZoom = this.onZoom.bind(this);
@@ -127,7 +176,7 @@ export default class MapContainer extends Component {
       projection: projection,
       scale: scale / 2 / Math.PI,
       translate: zoomTranslate || translate,
-      center: ChinaGeoOpt.provinceIndex[mapName].center,
+      center: center,
       simplify: simplify,
       simplifyArea: simplifyArea,
       clip: clip,
@@ -149,15 +198,8 @@ export default class MapContainer extends Component {
     this.width = width;
     this.height = height;
 
-    let styleContainer = {
-      position: 'relative',
-      border: '1px solid #000',
-      backgroundColor: '#fff',
-      width: width
-    }
-
     return (
-      <div id="mapContainer" style= {styleContainer}>
+      <div id="mapContainer" className={className} style= {styleContainer}>
         <Container
           {...this.props}
           width= {width}

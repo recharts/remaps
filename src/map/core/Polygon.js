@@ -8,17 +8,11 @@ import Popup from './Popup';
 export default class Polygon extends Component {
   static propTypes = {
     color: PropTypes.string,
-    polygonClass: PropTypes.string,
     onMouseOut: PropTypes.func,
     onMouseOver: PropTypes.func,
     geoData: PropTypes.object,
     geoPath: PropTypes.func,
-    polygonClass: PropTypes.string
     // onClick
-  };
-
-  static defaultProps = {
-    polygonClass: 'remaps-core__polygon'
   };
 
   constructor(props) {
@@ -90,7 +84,6 @@ export default class Polygon extends Component {
       id,
       color,
       geoData,
-      polygonClass,
       geoPath,
       onMouseOut,
       onMouseOver,
@@ -104,7 +97,7 @@ export default class Polygon extends Component {
                  stroke= {'#fff'}
                  strokeWidth= {'1'}
                  onMouseOver={this.handleMouseOver.bind(this, geoData)}
-                 onMouseMove={this.handleMouseMove.bind(this, geoData)}
+                 // onMouseMove={this.handleMouseMove.bind(this, geoData)}
                  onMouseOut= {this.handleMouseOut.bind(this, geoData)} />
   }
 }
