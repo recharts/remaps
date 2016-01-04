@@ -142,8 +142,6 @@ export default class MapContainer extends Component {
 
     let styleContainer = {
       position: 'relative',
-      border: '1px solid #000',
-      backgroundColor: '#fff',
       width: width,
       height: height
     };

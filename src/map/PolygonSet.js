@@ -76,6 +76,10 @@ export default class PolygonSet extends Component {
           })
         }
 
+        if (!color) {
+          color = defaultColor;
+        }
+
         if (hasDefaultColor) {
           color = defaultColor;
         }
