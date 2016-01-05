@@ -24,10 +24,6 @@ const foreignList = {
 const PI = Math.PI,
       shootType = 'oneByOne',
       // shootType = 'random',
-      // duration = 10000,
-      // shootDuration = 4000,
-      duration = 6000,
-      shootDuration = 3000,
       areaDimension = 'province',
       // 出发点爆炸圆半径
       fromRadius = 10,
@@ -70,10 +66,17 @@ CanvasRenderingContext2D.prototype.dashedLineTo = function (fromX, fromY, toX, t
 };
 
 export default class Shoot extends Component {
+  static defaultProps = {
+    duration: 8000,
+    shootDuration: 4000,
+  };
+
   constructor(props) {
     super(props);
 
     this.state = {
+      duration: props.shootDuration * 2,
+      shootDuration: props.shootDuration,
       canvasShow: true
     };
   }
@@ -111,8 +114,14 @@ export default class Shoot extends Component {
       mapName,
       ChinaGeoOpt,
       projection,
-      shootFinish
+      shootFinish,
+      hasShootLoop,
     } = this.props;
+
+    const {
+      duration,
+      shootDuration
+    } = this.state;
 
     // 由于要保证interval时间内完成全部动画
     let times = (duration / shootDuration) >> 0,
@@ -183,11 +192,17 @@ export default class Shoot extends Component {
           s(t * times - s.index);
         });
 
-        if (t >= 1 && !finish) {
-          finish = true;
-          // console.log('动画结束');
-          self.dispose();
-          shootFinish(finish);
+        // if (t >= 1 && !finish)
+        if (t >= 1) {
+          if (hasShootLoop) {
+            self.dispose();
+          } else {
+            if (!finish) {
+              finish = true;
+              self.dispose();
+              shootFinish(finish);
+            }
+          }
         }
       });
     }
@@ -710,11 +725,17 @@ export default class Shoot extends Component {
   }
 
   dispose() {
+    const {shootData, hasShootLoop} = this.props;
     this.stopAnimate();
-    if (!hasShootDataChange && this.state.canvasShow) {
-        this.setState({
-        canvasShow: false
-      });
+
+    if (hasShootLoop) {
+      this.initialize(shootData);
+    } else {
+      if (!hasShootDataChange && this.state.canvasShow) {
+          this.setState({
+          canvasShow: false
+        });
+      }
     }
     // this.shootCanvas.remove();
   }
@@ -823,9 +844,9 @@ export default class Shoot extends Component {
     //   shootCanvas.height = width;
     // }
 
-    if (hasShootDataChange) {
-      this.stopAnimate();
-    }
+    // if (hasShootDataChange) {
+    //   this.stopAnimate();
+    // }
 
     this.shootCanvas = shootCanvas;
     this.shootCtx = shootCtx;
@@ -847,7 +868,6 @@ export default class Shoot extends Component {
     if (nextProps.shootData !== this.props.shootData) {
       hasShootDataChange = true;
       finish = false;
-      // console.log('动画再次开始');
       this.stopAnimate();
       shootFinish(finish);
     }

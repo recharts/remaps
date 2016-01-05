@@ -27,6 +27,7 @@ export default class MapContainer extends Component {
     mapName: '',
     simplify: true,
     simplifyArea: 0,
+    hasShootLoop: false
     // scale: 1 << 12,
     // scaleExtent: [1 << 10, 1 << 14],
   };
@@ -135,6 +136,8 @@ export default class MapContainer extends Component {
       bounds,
       data,
       shootData,
+      hasShootLoop,
+      shootDuration,
       popupContent
     } = this.props;
 
@@ -221,6 +224,8 @@ export default class MapContainer extends Component {
             height= {height}
             mapName= {mapName}
             shootData= {shootData}
+            hasShootLoop= {hasShootLoop}
+            shootDuration= {shootDuration}
             projection= {proj}
             shootFinish= {handleFinish}
             ChinaGeoOpt= {ChinaGeoOpt}

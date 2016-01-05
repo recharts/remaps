@@ -4,42 +4,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {MapContainer, Maps, Legend} from 'remaps';
 
-// const newData = {
-//   '甘肃': {title: '浙江省 － 四川省', value: 4413, index: 0},
-//   '青海': {title: '浙江省 － 四川省', value: 443, index: 1},
-//   '广西': {title: '浙江省 － 四川省', value: 3213, index: 2},
-//   '贵州': {title: '浙江省 － 四川省', value: 3213, index: 3},
-//   '重庆': {title: '浙江省 － 四川省', value: 3343, index: 4},
-//   '北京': {title: '浙江省 － 四川省', value: 3213, index: 5},
-//   '福建': {title: '浙江省 － 四川省', value: 3413, index: 6},
-//   '安徽': {title: '浙江省 － 四川省', value: 323, index: 7},
-//   '广东': {title: '浙江省 － 四川省', value: 3223, index: 8},
-//   '西藏': {title: '浙江省 － 四川省', value: 344, index: 9},
-//   '新疆': {title: '浙江省 － 四川省', value: 3233, index: 10},
-//   '海南': {title: '浙江省 － 四川省', value: 3213, index: 11},
-//   '宁夏': {title: '浙江省 － 四川省', value: 3213, index: 13},
-//   '陕西': {title: '浙江省 － 四川省', value: 313, index: 14},
-//   '山西': {title: '浙江省 － 四川省', value: 13, index: 15},
-//   '湖北': {title: '浙江省 － 四川省', value: 1213, index: 16},
-//   '湖南': {title: '浙江省 － 四川省', value: 8413, index: 17},
-//   '四川': {title: '浙江省 － 四川省', value: 9413, index: 18},
-//   '云南': {title: '浙江省 － 四川省', value: 4543, index: 19},
-//   '河北': {title: '浙江省 － 四川省', value: 1113, index: 20},
-//   '河南': {title: '浙江省 － 四川省', value: 2213, index: 21},
-//   '辽宁': {title: '浙江省 － 四川省', value: 433, index: 22},
-//   '山东': {title: '浙江省 － 四川省', value: 1213, index: 23},
-//   '天津': {title: '浙江省 － 四川省', value: 233, index: 24},
-//   '江西': {title: '浙江省 － 四川省', value: 11113, index: 25},
-//   '江苏': {title: '浙江省 － 四川省', value: 653, index: 26},
-//   '上海': {title: '浙江省 － 四川省', value: 7713, index: 27},
-//   '浙江': {title: '浙江省 － 四川省', value: 554, index: 28},
-//   '吉林': {title: '浙江省 － 四川省', value: 231, index: 29},
-//   '内蒙古': {title: '浙江省 － 四川省', value: 3213, index: 30},
-//   '黑龙江': {title: '浙江省 － 四川省', value: 4343, index: 31},
-//   '台湾': {title: '浙江省 － 四川省', value: 665, index: 32},
-//   '香港': {title: '浙江省 － 四川省', value: 4544, index: 33},
-//   '澳门': {title: '浙江省 － 四川省', value: 2321, index: 34}
-// };
 const newData = [
   {name: '甘肃', title: '浙江省 － 四川省', value: 4413, index: 0},
   {name: '青海', title: '浙江省 － 四川省', value: 443, index: 1},
@@ -185,6 +149,8 @@ export default React.createClass({
           className={"mapContainer"}
           width= {width}
           shootData= {shootData}
+          hasShootLoop= {true}
+          shootDuration= {3000}
           mapName= {this.state.mapName}
         >
           <Maps
