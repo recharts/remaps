@@ -2,8 +2,8 @@
 
 import React, {Component, PropTypes} from 'react';
 import {OrderedMap, Map} from 'immutable';
-import ChinaData from '../data/geojson/0';
-import ProvinceData from '../data/geojson/1';
+import ChinaData from '../data/geojson/ChinaData';
+import ProvinceData from '../data/geojson/ProvinceData';
 import Popup from './core/Popup';
 import SouthSea from './core/SouthSea';
 import Legend from './core/Legend';

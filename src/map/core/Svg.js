@@ -14,7 +14,7 @@ export default class Svg extends Component {
 
   static defaultProps = Object.assign(CommonProps, {
     svgClassName: 'remaps_container_svg',
-    scaleExtent: [1 << 12, 1 << 28]
+    scaleExtent: [1 << 10, 1 << 28]
   });
 
   constructor(props) {
