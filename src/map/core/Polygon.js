@@ -35,7 +35,7 @@ export default class Polygon extends Component {
     }
   }
 
-  handleMouseOver = (d, e) => {
+  handleMouseOver(d, e) {
     const {
       id,
       hoverColor,

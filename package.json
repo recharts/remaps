@@ -1,6 +1,6 @@
 {
   "name": "remaps",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "React maps",
   "main": "src/index.js",
   "keywords": [
