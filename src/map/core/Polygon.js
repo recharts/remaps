@@ -53,7 +53,7 @@ export default class Polygon extends Component {
     return onMouseOver(this, d, id, xy);
   }
 
-  handleMouseMove = (d, e) => {
+  handleMouseMove(d, e) {
     const {
       id,
       onMouseMove
@@ -64,7 +64,7 @@ export default class Polygon extends Component {
     return onMouseMove(this, d, id, xy);
   }
 
-  handleMouseOut = (d) => {
+  handleMouseOut(d) {
     const {
       id,
       color,
