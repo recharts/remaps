@@ -2,14 +2,15 @@
 
 import React, {Component, PropTypes} from 'react';
 import {OrderedMap, Map} from 'immutable';
-import ChinaData from '../data/geojson/ChinaData';
-import ProvinceData from '../data/geojson/ProvinceData';
+import PolygonSet from './PolygonSet';
+import TextSet from './TextSet';
 import Popup from './core/Popup';
 import SouthSea from './core/SouthSea';
 import Legend from './core/Legend';
-import PolygonSet from './PolygonSet';
-import TextSet from './TextSet';
+import {formatName} from './utils/FormatHelper';
 import ChinaGeoOpt from '../data/china';
+import ChinaData from '../data/geojson/ChinaData';
+import ProvinceData from '../data/geojson/ProvinceData';
 
 export default class Maps extends Component {
   static contextTypes = {
@@ -20,8 +21,7 @@ export default class Maps extends Component {
     mapName: React.PropTypes.string.isRequired,
     data: React.PropTypes.array,
     shootData: React.PropTypes.array,
-    finish: React.PropTypes.bool,
-    popupContent: React.PropTypes.func
+    finish: React.PropTypes.bool
   };
 
   static defaultProps = {
@@ -119,6 +119,8 @@ export default class Maps extends Component {
     })
   }
 
+
+
   render() {
 
     const {
@@ -173,7 +175,18 @@ export default class Maps extends Component {
         let popupData = showPopup.get(d).get('data');
 
         let point = projection([xPopup, yPopup])
-        let content = popupContent(popupData.properties.name);
+
+        let currentData;
+
+        data.forEach(item => {
+          let tempName = formatName(item[nameKey]);
+
+          if (tempName === popupData.properties.name) {
+            currentData = item;
+          }
+        })
+
+        let content = popupContent(currentData);
 
         if (content) {
           return  (

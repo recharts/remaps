@@ -1,3 +1,5 @@
+"use strict";
+
 import d3 from 'd3';
 
 // d3.geo.tile 瓦片

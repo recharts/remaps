@@ -69,29 +69,26 @@ export default React.createClass({
   onPolygonCloseClick(id) {
   },
 
-  popupContent(name) {
-    let flag = false;
-    let item = newData.map(d => {
-      if (d['name'] === name) {
-        flag = true;
-        return (
-          <div>
-            <p>
-              <span>{name}</span>
-            </p>
-            <p>
-              <span>模拟数据：</span>
-              <span>{d['value']}</span>
-            </p>
-            <p>
-              <span>模拟数据：</span>
-              <span>{d['index']}</span>
-            </p>
-          </div>
-        );
-      }
-    })
-    return flag ? item : null;
+  popupContent(data) {
+    if (data) {
+      return (
+        <div>
+          <p>
+            <span>{data.name}</span>
+          </p>
+          <p>
+            <span>模拟数据：</span>
+            <span>{data.value}</span>
+          </p>
+          <p>
+            <span>模拟数据：</span>
+            <span>{data.index}</span>
+          </p>
+        </div>
+      );
+    } else {
+      return null;
+    }
   },
 
   render() {

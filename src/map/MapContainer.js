@@ -1,14 +1,15 @@
 "use strict"
 
 import React, {Component, PropTypes} from 'react';
+import CommonProps from './CommonProps';
+import Shoot from './Shoot';
 import Container from './core/Container';
 import {Projection as projectionFunc} from './core/Projection';
 import {GeoPath} from './core/GeoPath';
 import {TileFunc} from './core/TileFunc';
 import ZoomControl from './core/ZoomControl';
-import CommonProps from './CommonProps';
+import {formatName} from './utils/FormatHelper';
 import ChinaGeoOpt from '../data/china';
-import Shoot from './Shoot';
 
 export default class MapContainer extends Component {
   static childContextTypes = {
@@ -28,14 +29,13 @@ export default class MapContainer extends Component {
     simplify: true,
     simplifyArea: 0,
     hasShootLoop: false
-    // scale: 1 << 12,
-    // scaleExtent: [1 << 10, 1 << 14],
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
+      mapName: formatName(props.mapName),
       // 移动
       zoomTranslate: null,
       // 比例尺-缩放
@@ -59,9 +59,11 @@ export default class MapContainer extends Component {
   }
 
   componentWillMount() {
-    if (ChinaGeoOpt.provinceIndex[this.props.mapName]) {
+    const {mapName} = this.state;
+
+    if (ChinaGeoOpt.provinceIndex[mapName]) {
       this.setState({
-        scale: this.props.width * ChinaGeoOpt.provinceIndex[this.props.mapName].scale / 600,
+        scale: this.props.width * ChinaGeoOpt.provinceIndex[mapName].scale / 600,
       });
     } else {
       this.setState({
@@ -72,12 +74,16 @@ export default class MapContainer extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.mapName !== this.props.mapName) {
-      if (ChinaGeoOpt.provinceIndex[nextProps.mapName]) {
+      let newMapName = formatName(nextProps.mapName);
+
+      if (ChinaGeoOpt.provinceIndex[newMapName]) {
         this.setState({
-          scale: this.props.width * ChinaGeoOpt.provinceIndex[nextProps.mapName].scale / 600,
+          mapName: newMapName,
+          scale: this.props.width * ChinaGeoOpt.provinceIndex[newMapName].scale / 600,
         });
       } else {
         this.setState({
+          mapName: '',
           scale: null
         });
       }
@@ -119,6 +125,7 @@ export default class MapContainer extends Component {
 
   render() {
     const {
+      mapName,
       scale,
       zoomTranslate,
       finish
@@ -128,7 +135,6 @@ export default class MapContainer extends Component {
       className,
       width,
       zoom,
-      mapName,
       projection,
       simplify,
       simplifyArea,
@@ -137,8 +143,7 @@ export default class MapContainer extends Component {
       data,
       shootData,
       hasShootLoop,
-      shootDuration,
-      popupContent
+      shootDuration
     } = this.props;
 
     let height = width * 3 / 4;

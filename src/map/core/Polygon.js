@@ -1,9 +1,9 @@
 "use strict";
 
 import React, {Component, PropTypes} from 'react';
-import {isTooltipUpdate} from './TooltipUpdate';
 import {OrderedMap, Map} from 'immutable';
 import Popup from './Popup';
+import {isTooltipUpdate} from './TooltipUpdate';
 
 export default class Polygon extends Component {
   static propTypes = {

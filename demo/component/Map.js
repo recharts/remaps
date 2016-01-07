@@ -5,8 +5,8 @@ import ReactDOM from 'react-dom';
 import {MapContainer, Maps, Legend} from 'remaps';
 
 const newData = [
-  {name: '甘肃', title: '浙江省 － 四川省', value: 4413, index: 0},
-  {name: '青海', title: '浙江省 － 四川省', value: 443, index: 1},
+  {name: '甘肃省', title: '浙江省 － 四川省', value: 4413, index: 0},
+  {name: '青海省', title: '浙江省 － 四川省', value: 443, index: 1},
   {name: '广西', title: '浙江省 － 四川省', value: 3213, index: 2},
   {name: '贵州', title: '浙江省 － 四川省', value: 3213, index: 3},
   {name: '重庆', title: '浙江省 － 四川省', value: 3343, index: 4},
@@ -75,29 +75,26 @@ export default React.createClass({
     });
   },
 
-  popupContent(name) {
-    let flag = false;
-    let item = newData.map(d => {
-      if (d['name'] === name) {
-        flag = true;
-        return (
-          <div>
-            <p>
-              <span>{name}</span>
-            </p>
-            <p>
-              <span>模拟数据：</span>
-              <span>{d['value']}</span>
-            </p>
-            <p>
-              <span>模拟数据：</span>
-              <span>{d['index']}</span>
-            </p>
-          </div>
-        );
-      }
-    })
-    return flag ? item : null;
+  popupContent(data) {
+    if (data) {
+      return (
+        <div>
+          <p>
+            <span>{data.name}</span>
+          </p>
+          <p>
+            <span>模拟数据：</span>
+            <span>{data.value}</span>
+          </p>
+          <p>
+            <span>模拟数据：</span>
+            <span>{data.index}</span>
+          </p>
+        </div>
+      );
+    } else {
+      return null;
+    }
   },
 
   render() {

@@ -41,29 +41,26 @@ export default React.createClass({
   onPolygonCloseClick(id) {
   },
 
-  popupContent(name) {
-    let flag = false;
-    let item = newData.map(d => {
-      if (d['name'] === name) {
-        flag = true;
-        return (
-          <div>
-            <p>
-              <span>{name}</span>
-            </p>
-            <p>
-              <span>模拟数据：</span>
-              <span>{d['value']}</span>
-            </p>
-            <p>
-              <span>模拟数据：</span>
-              <span>{d['index']}</span>
-            </p>
-          </div>
-        );
-      }
-    })
-    return flag ? item : null;
+  popupContent(data) {
+    if (data) {
+      return (
+        <div>
+          <p>
+            <span>{data.name}</span>
+          </p>
+          <p>
+            <span>模拟数据：</span>
+            <span>{data.value}</span>
+          </p>
+          <p>
+            <span>模拟数据：</span>
+            <span>{data.index}</span>
+          </p>
+        </div>
+      );
+    } else {
+      return null;
+    }
   },
 
   render() {
@@ -105,7 +102,7 @@ export default React.createClass({
           <option value="天津">天津</option>
           <option value="新疆">新疆</option>
           <option value="西藏">西藏</option>
-          <option value="云南">云南</option>
+          <option value="云南省">云南省</option>
           <option value="浙江" selected>浙江</option>
         </select>
 
