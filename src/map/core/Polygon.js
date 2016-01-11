@@ -35,17 +35,28 @@ export default class Polygon extends Component {
     }
   }
 
+  getOffset (el) {
+    const box = el.getBoundingClientRect();
+
+    return {
+      top: box.top + window.pageYOffset - document.documentElement.clientTop,
+      left: box.left + window.pageXOffset - document.documentElement.clientLeft
+    }
+  }
+
   handleMouseOver(d, e) {
     const {
       id,
+      mapId,
       hoverColor,
       onMouseOut,
       onMouseOver,
       onClick
     } = this.props;
 
-    let xy = [e.clientX, e.clientY + (document.body.scrollTop || document.documentElement.scrollTop)];
-    // let xy = [e.pageX, e.pageY];
+    const mapContainer = document.getElementById(mapId);
+
+    let xy = [e.clientX, e.pageY - this.getOffset(mapContainer).top];
 
     this.setState({
       fill: hoverColor
@@ -57,11 +68,12 @@ export default class Polygon extends Component {
   handleMouseMove(d, e) {
     const {
       id,
+      mapId,
       onMouseMove
     } = this.props;
 
-    let xy = [e.clientX, e.clientY + (document.body.scrollTop || document.documentElement.scrollTop)];
-    // let xy = [e.pageX, e.pageY];
+    const mapContainer = document.getElementById(mapId);
+    let xy = [e.clientX, e.pageY - this.getOffset(mapContainer).top];
 
     return onMouseMove(this, d, id, xy);
   }

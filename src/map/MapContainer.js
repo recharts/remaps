@@ -11,6 +11,8 @@ import ZoomControl from './core/ZoomControl';
 import {formatName} from './utils/FormatHelper';
 import ChinaGeoOpt from '../data/china';
 
+let mapId = 'mapContainer';
+
 export default class MapContainer extends Component {
   static childContextTypes = {
     width: React.PropTypes.number,
@@ -19,7 +21,8 @@ export default class MapContainer extends Component {
     projection: React.PropTypes.func,
     mapName: React.PropTypes.string,
     shootData: React.PropTypes.array,
-    finish: React.PropTypes.bool
+    finish: React.PropTypes.bool,
+    mapId: React.PropTypes.string,
   };
 
   static defaultProps = {
@@ -54,12 +57,15 @@ export default class MapContainer extends Component {
       shootData: this.shootData,
       geoPath: this.geoPath,
       projection: this.projection,
-      mapName: this.mapName
+      mapName: this.mapName,
+      mapId: this.mapId
     };
   }
 
   componentWillMount() {
     const {mapName} = this.state;
+
+    mapId += '1';
 
     if (ChinaGeoOpt.provinceIndex[mapName]) {
       this.setState({
@@ -203,9 +209,10 @@ export default class MapContainer extends Component {
     this.finish = finish;
     this.width = width;
     this.height = height;
+    this.mapId = mapId;
 
     return (
-      <div id="mapContainer" className={className} style= {styleContainer}>
+      <div id={mapId} className={className} style= {styleContainer}>
         <Container
           {...this.props}
           width= {width}

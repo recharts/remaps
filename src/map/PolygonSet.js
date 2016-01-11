@@ -14,6 +14,7 @@ export default class PolygonSet extends Component {
       data,
       nameKey,
       valueKey,
+      mapId,
       defaultColor,
       hoverColor,
       shootColor,
@@ -109,6 +110,7 @@ export default class PolygonSet extends Component {
         return (
           <Polygon
             key= {'remaps_polygon' + i}
+            mapId= {mapId}
             color= {color}
             hoverColor= {hoverColor}
             projection= {projection}

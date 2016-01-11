@@ -50,12 +50,8 @@ export default React.createClass({
             <span>{data.name}</span>
           </p>
           <p>
-            <span>模拟数据：</span>
+            <span>模拟数据：模拟数据</span>
             <span>{data.value}</span>
-          </p>
-          <p>
-            <span>模拟数据：</span>
-            <span>{data.index}</span>
           </p>
         </div>
       );

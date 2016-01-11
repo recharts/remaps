@@ -16,7 +16,7 @@ export default class Popup extends Component {
   };
 
   static defaultProps = {
-    width: 200,
+    width: 150,
     height: 50
   };
 
@@ -32,26 +32,37 @@ export default class Popup extends Component {
     this._updateHeight();
   }
 
+  getPos(obj) {
+    let pos = {left:0, top:0};
+    while(obj) {
+      pos.left += obj.offsetLeft;
+      pos.top += obj.offsetTop;
+      obj = obj.offsetParent;
+    }
+    return pos;
+  }
+
   _updateHeight() {
     const {
       x,
       y,
       mapWidth,
-      mapHeight
+      mapHeight,
+      mapId
     } = this.props;
 
     let contentDOM = this.refs.popupContentWrapper;
     let contentForeign = this.refs.popupContentForeignObject;
 
-    const mapContainer = document.getElementById('mapContainer');
+    const mapContainer = document.getElementById(mapId);
 
     const halfMapWidth = mapWidth / 2,
           halfMapHeight = mapHeight / 2;
 
     let popupX, popupY;
 
-    let newX = x - mapContainer.offsetLeft;
-    let newY = y - mapContainer.offsetTop;
+    let newX = x - this.getPos(mapContainer).left;
+    let newY = y;
 
     if (newX > halfMapWidth) {
       popupX = newX - contentDOM.clientWidth - 10;

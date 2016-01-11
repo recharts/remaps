@@ -24,7 +24,8 @@ export default class Maps extends Component {
     mapName: React.PropTypes.string.isRequired,
     data: React.PropTypes.array,
     shootData: React.PropTypes.array,
-    finish: React.PropTypes.bool
+    finish: React.PropTypes.bool,
+    mapId: React.PropTypes.string,
   };
 
   static defaultProps = {
@@ -122,8 +123,6 @@ export default class Maps extends Component {
     })
   }
 
-
-
   render() {
 
     const {
@@ -152,7 +151,8 @@ export default class Maps extends Component {
       shootData,
       mapName,
       geoPath,
-      projection
+      projection,
+      mapId
     } = this.context;
 
     let onMouseOver = this._onMouseOver.bind(this);
@@ -199,7 +199,8 @@ export default class Maps extends Component {
               mapHeight= {height}
               x= {point[0]}
               y= {point[1]}
-              contentPopup={content}
+              contentPopup= {content}
+              mapId= {mapId}
             />
           )
         }
@@ -210,6 +211,7 @@ export default class Maps extends Component {
       <g className='Maps'>
         <PolygonSet
           className= 'PolygonSet'
+          mapId= {mapId}
           data= {data ? data : []}
           nameKey= {nameKey}
           valueKey= {valueKey}
