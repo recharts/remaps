@@ -11,6 +11,7 @@ const newData = [
   {name: '丽水市', title: '浙江省 － 四川省', value: 3213, index: 3},
   {name: '宁波市', title: '浙江省 － 四川省', value: 3343, index: 4},
   {name: '温州市', title: '浙江省 － 四川省', value: 3213, index: 5},
+  {name: '台州市', title: '浙江省 － 四川省', value: 3213, index: 5},
 ];
 
 export default React.createClass({
@@ -64,7 +65,7 @@ export default React.createClass({
   },
 
   render() {
-    const width = 600;
+    const width = 500;
 
     return (
       <div className='simple-maps'>

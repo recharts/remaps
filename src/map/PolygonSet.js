@@ -9,57 +9,6 @@ export default class PolygonSet extends Component {
     super(props);
   }
 
-  // formatName(name, regionType) {
-  //   var result,
-
-  //     // 根据地区缩写返回hash中key对应的值
-  //     search = function (regionType, name) {
-  //       var shortName = name.substr(0, 2);
-
-  //       if (regionType === 'province') {
-  //         // 内蒙古，黑龙江
-  //         if (shortName === '内蒙' || shortName === '黑龙') {
-  //           shortName = name.substr(0, 3);
-  //         }
-  //       }
-
-  //       if (regionType === 'city') {
-  //         //prevent duplicate，张家口市,张家界市，阿拉善盟, 阿拉尔市
-  //         if (shortName === '阿拉' || shortName === '张家') {
-  //           shortName = name.substr(0, 3);
-  //         }
-  //       }
-
-  //       // if (typeof result === 'undefined') {
-  //       //   return undefined;
-  //       // }
-
-  //       return shortName;
-  //     };
-
-
-  //   // 如果regionType省略，先找省，再找市
-  //   if (typeof regionType === 'undefined') {
-  //     if (name === '吉林市' || name === '海南藏族自治州') {
-  //       // 这两个市和省重名，所以要加特殊处理
-  //       //吉林省， 吉林市； 海南省，海南藏族自治州
-  //       result = search('city', name);
-  //     } else {
-  //       result = search('province', name) || search('city', name);
-  //     }
-  //   } else {
-  //     if (regionType === 'province') {
-  //       //province
-  //       result = search('province', name);
-  //     } else if (regionType === 'city') {
-  //       //city
-  //       result = search('city', name);
-  //     }
-  //   }
-
-  //   return result;
-  // }
-
   render() {
     const {
       data,
@@ -74,7 +23,7 @@ export default class PolygonSet extends Component {
       projection,
       onClick,
       onMouseOver,
-      // onMouseMove,
+      onMouseMove,
       onMouseOut,
       shootFinish,
       shootData
@@ -167,7 +116,7 @@ export default class PolygonSet extends Component {
             geoPath= {geoPath}
             onClick= {onClick}
             onMouseOver= {onMouseOver}
-            // onMouseMove= {onMouseMove}
+            onMouseMove= {onMouseMove}
             onMouseOut= {onMouseOut}
           />
         )

@@ -97,7 +97,7 @@ export default class Polygon extends Component {
                  stroke= {'#fff'}
                  strokeWidth= {'1'}
                  onMouseOver={this.handleMouseOver.bind(this, geoData)}
-                 // onMouseMove={this.handleMouseMove.bind(this, geoData)}
+                 onMouseMove={this.handleMouseMove.bind(this, geoData)}
                  onMouseOut= {this.handleMouseOut.bind(this, geoData)} />
   }
 }

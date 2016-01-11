@@ -154,7 +154,7 @@ export default class Maps extends Component {
 
     let onMouseOver = this._onMouseOver.bind(this);
 
-    // let onMouseMove = this._onMouseMove.bind(this);
+    let onMouseMove = this._onMouseMove.bind(this);
 
     let onMouseOut = this._onMouseOut.bind(this);
 
@@ -220,7 +220,7 @@ export default class Maps extends Component {
           geoData= {geoData}
           geoPath= {geoPath}
           onMouseOver= {onMouseOver}
-          // onMouseMove= {onMouseMove}
+          onMouseMove= {onMouseMove}
           onMouseOut= {onMouseOut}
           {...this.state}
         />
