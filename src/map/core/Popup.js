@@ -76,7 +76,7 @@ export default class Popup extends Component {
     } = this.props;
 
     const popupContentStyle= {
-      backgroundColor: '#FFF',
+      // backgroundColor: '#FFF',
       padding: '5px',
       lineHeight: 1
     }
@@ -113,7 +113,7 @@ export default class Popup extends Component {
       pointerEvents: 'none',
       boxShadow: '0 3px 14px rgba(0,0,0,0.4)',
       textAlign: 'center',
-      backgroundColor: '#FFF',
+      // backgroundColor: '#FFF',
       width: 'auto',
       height: 'auto'
     };

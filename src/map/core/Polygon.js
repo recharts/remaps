@@ -44,7 +44,8 @@ export default class Polygon extends Component {
       onClick
     } = this.props;
 
-    let xy = [e.clientX, e.clientY];
+    // let xy = [e.clientX, e.clientY];
+    let xy = [e.pageX, e.pageY];
 
     this.setState({
       fill: hoverColor
@@ -59,7 +60,8 @@ export default class Polygon extends Component {
       onMouseMove
     } = this.props;
 
-    let xy = [e.clientX, e.clientY];
+    // let xy = [e.clientX, e.clientY];
+    let xy = [e.pageX, e.pageY];
 
     return onMouseMove(this, d, id, xy);
   }
