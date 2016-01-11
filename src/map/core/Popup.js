@@ -8,7 +8,7 @@ export default class Popup extends Component {
   static propTypes = {
     x: PropTypes.number,
     y: PropTypes.number,
-    contentPopup: PropTypes.array,
+    // contentPopup: PropTypes.array,
     mapWidth: PropTypes.number,
     mapHeight: PropTypes.number,
     width: PropTypes.number,
@@ -76,7 +76,7 @@ export default class Popup extends Component {
     } = this.props;
 
     const popupContentStyle= {
-      // backgroundColor: '#FFF',
+      backgroundColor: '#FFF',
       padding: '5px',
       lineHeight: 1
     }

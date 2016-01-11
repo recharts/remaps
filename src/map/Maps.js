@@ -13,6 +13,9 @@ import ChinaData from '../data/geojson/ChinaData';
 import ProvinceData from '../data/geojson/ProvinceData';
 
 export default class Maps extends Component {
+  static propTypes = {
+  };
+
   static contextTypes = {
     width: React.PropTypes.number.isRequired,
     height: React.PropTypes.number.isRequired,
