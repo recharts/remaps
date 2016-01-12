@@ -819,16 +819,15 @@ export default class Shoot extends Component {
       projection,
     } = this.props;
 
-    let shootCanvas = ReactDOM.findDOMNode(this.refs.canvas);
-    let shootCtx = shootCanvas.getContext('2d');
+    let shootCanvas = ReactDOM.findDOMNode(this.refs.canvas) || null;
 
-    let backingStoreRatio = shootCtx.webkitBackingStorePixelRatio ||
-                            shootCtx.mozBackingStorePixelRatio ||
-                            shootCtx.msBackingStorePixelRatio ||
-                            shootCtx.oBackingStorePixelRatio ||
-                            shootCtx.backingStorePixelRatio || 1,
-        dpr = Math.max(window.devicePixelRatio || 1, 1),
-        ratio = dpr / backingStoreRatio;
+    // let backingStoreRatio = shootCtx.webkitBackingStorePixelRatio ||
+    //                         shootCtx.mozBackingStorePixelRatio ||
+    //                         shootCtx.msBackingStorePixelRatio ||
+    //                         shootCtx.oBackingStorePixelRatio ||
+    //                         shootCtx.backingStorePixelRatio || 1,
+    //     dpr = Math.max(window.devicePixelRatio || 1, 1),
+    //     ratio = dpr / backingStoreRatio;
 
     // 解决高清屏绘制的图形模糊的问题
     // if (ratio !== 1) {
@@ -848,13 +847,17 @@ export default class Shoot extends Component {
     //   this.stopAnimate();
     // }
 
-    this.shootCanvas = shootCanvas;
-    this.shootCtx = shootCtx;
-    this.shootCtx.lineWidth = lineWidth;
+    if (shootCanvas) {
+      let shootCtx = shootCanvas.getContext('2d') || null;
 
-    this.calRadius();
+      this.shootCanvas = shootCanvas;
+      this.shootCtx = shootCtx;
+      this.shootCtx.lineWidth = lineWidth;
 
-    this.draw(shootData);
+      this.calRadius();
+
+      this.draw(shootData);
+    }
   }
 
   componentDidMount() {

@@ -14,7 +14,6 @@ export default class PolygonSet extends Component {
       data,
       nameKey,
       valueKey,
-      mapId,
       defaultColor,
       hoverColor,
       shootColor,
@@ -101,7 +100,7 @@ export default class PolygonSet extends Component {
           color = oldColor;
         } else {
           for (let i = 0; i < shootData.length; i ++) {
-            if (d.properties.name === shootData[i].from || d.properties.name === shootData[i].to) {
+            if (d.properties.name === formatName(shootData[i].from) || d.properties.name === formatName(shootData[i].to)) {
               color = shootColor;
             }
           }
@@ -110,7 +109,6 @@ export default class PolygonSet extends Component {
         return (
           <Polygon
             key= {'remaps_polygon' + i}
-            mapId= {mapId}
             color= {color}
             hasDefaultColor= {hasDefaultColor}
             hoverColor= {hoverColor}

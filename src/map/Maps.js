@@ -38,7 +38,6 @@ export default class Maps extends Component {
       geoPath,
       geoData,
       projection,
-      mapId,
 
       onMouseOver,
       onMouseMove,
@@ -49,7 +48,6 @@ export default class Maps extends Component {
       <g className='Maps'>
         <PolygonSet
           className= 'PolygonSet'
-          mapId= {mapId}
           data= {data ? data : []}
           nameKey= {nameKey}
           valueKey= {valueKey}

@@ -16,8 +16,6 @@ import ChinaGeoOpt from '../data/china';
 import ChinaData from '../data/geojson/ChinaData';
 import ProvinceData from '../data/geojson/ProvinceData';
 
-let mapId = 'mapContainer';
-
 export default class MapContainer extends Component {
 
   static defaultProps = {
@@ -31,8 +29,8 @@ export default class MapContainer extends Component {
     valueKey: 'value',
     hasName: false,
     hasLegend: false,
-    shootColor: '#86C899',
-    hoverColor: '#FCE687',
+    shootColor: '#FCE687',
+    hoverColor: '#86C899',
   };
 
   constructor(props) {
@@ -53,8 +51,6 @@ export default class MapContainer extends Component {
 
   componentWillMount() {
     const {mapName} = this.state;
-
-    mapId += '1';
 
     if (ChinaGeoOpt.provinceIndex[mapName]) {
       this.setState({
@@ -118,7 +114,16 @@ export default class MapContainer extends Component {
     })
   }
 
-  _onMouseOver(that, d, id, xy) {
+  getOffset (el) {
+    const box = el.getBoundingClientRect();
+
+    return {
+      top: box.top + window.pageYOffset - document.documentElement.clientTop,
+      left: box.left + window.pageXOffset - document.documentElement.clientLeft
+    }
+  }
+
+  _onMouseOver(that, d, id, e) {
 
     const {
       showPopup
@@ -130,6 +135,10 @@ export default class MapContainer extends Component {
 
     if(onMouseOver)
       onMouseOver(that, d, id);
+
+    const mapContainer = this.refs.mapContainer;
+
+    let xy = [e.pageX - this.getOffset(mapContainer).left, e.pageY - this.getOffset(mapContainer).top];
 
     let position = this.projection.invert([xy[0], xy[1]]);
 
@@ -144,7 +153,7 @@ export default class MapContainer extends Component {
     })
   }
 
-  _onMouseMove(that, d, id, xy) {
+  _onMouseMove(that, d, id, e) {
 
     const {
       showPopup
@@ -156,6 +165,10 @@ export default class MapContainer extends Component {
 
     if(onMouseMove)
       onMouseMove(that, d, id);
+
+    const mapContainer = this.refs.mapContainer;
+
+    let xy = [e.pageX - this.getOffset(mapContainer).left, e.pageY - this.getOffset(mapContainer).top];
 
     let position = this.projection.invert([xy[0], xy[1]]);
 
@@ -242,7 +255,7 @@ export default class MapContainer extends Component {
 
     if (!scale) {
       return (
-        <div id="mapContainer" className={className} style= {styleContainer}>
+        <div ref="mapContainer" className={className} style= {styleContainer}>
           <p className="Warning" style= {styleWarning}>目前暂只支持中国以及中国各省份的地图！</p>
         </div>
       )
@@ -314,7 +327,7 @@ export default class MapContainer extends Component {
     }
 
     return (
-      <div id={mapId} className={className} style= {styleContainer}>
+      <div ref="mapContainer" className={className} style= {styleContainer}>
         <Container
           {...this.props}
           width= {width}
@@ -343,7 +356,6 @@ export default class MapContainer extends Component {
             geoPath= {geo}
             geoData= {geoData}
             projection= {proj}
-            mapId= {mapId}
             onMouseOver= {onMouseOver}
             onMouseMove= {onMouseMove}
             onMouseOut= {onMouseOut}

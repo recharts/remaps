@@ -120,25 +120,6 @@ export default React.createClass({
           hasName= {false}
           popupContent= {this.popupContent}
         >
-          {
-            // <Maps
-            //           data= {newData}
-            //           nameKey= {'name'}
-            //           valueKey= {'value'}
-            //           colorArr= {['#C6C9EE', '#B9BCED', '#AAADF0', '#8C90EF', '#6670F5']}
-            //           defaultColor= {'#CACACA'}
-            //           shootColor= {'#FCE687'}
-            //           hoverColor= {'#86C899'}
-            //           hasLegend= {true}
-            //           legendPos= {[50, 420]}
-            //           hasName= {false}
-            //           popupContent= {this.popupContent}
-            //           // onClick= {this.onPolygonClick}
-            //           // onCloseClick= {this.onPolygonCloseClick}
-            //           // onMouseOver= {this.onPolygonMouseOver}
-            //           // onMouseOut= {this.onPolygonMouseOut}
-            //         />
-          }
         </MapContainer>
       </div>
     );
