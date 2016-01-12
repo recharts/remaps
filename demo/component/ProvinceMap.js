@@ -2,7 +2,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {MapContainer, Maps} from 'remaps';
+import {MapContainer} from 'remaps';
 
 const newData = [
   {name: '杭州市', title: '浙江省 － 四川省', value: 4413, index: 0},
@@ -107,24 +107,38 @@ export default React.createClass({
           width= {width}
           zoom= {false}
           mapName= {this.state.mapName}
+
+          extData= {newData}
+          nameKey= {'name'}
+          valueKey= {'value'}
+          colorArr= {['#C6C9EE', '#B9BCED', '#AAADF0', '#8C90EF', '#6670F5']}
+          defaultColor= {'#CACACA'}
+          shootColor= {'#86C899'}
+          hoverColor= {'#FCE687'}
+          hasLegend= {true}
+          legendPos= {[50, 420]}
+          hasName= {false}
+          popupContent= {this.popupContent}
         >
-          <Maps
-            data= {newData}
-            nameKey= {'name'}
-            valueKey= {'value'}
-            colorArr= {['#C6C9EE', '#B9BCED', '#AAADF0', '#8C90EF', '#6670F5']}
-            defaultColor= {'#CACACA'}
-            shootColor= {'#FCE687'}
-            hoverColor= {'#86C899'}
-            hasLegend= {true}
-            legendPos= {[50, 420]}
-            hasName= {false}
-            popupContent= {this.popupContent}
-            // onClick= {this.onPolygonClick}
-            // onCloseClick= {this.onPolygonCloseClick}
-            // onMouseOver= {this.onPolygonMouseOver}
-            // onMouseOut= {this.onPolygonMouseOut}
-          />
+          {
+            // <Maps
+            //           data= {newData}
+            //           nameKey= {'name'}
+            //           valueKey= {'value'}
+            //           colorArr= {['#C6C9EE', '#B9BCED', '#AAADF0', '#8C90EF', '#6670F5']}
+            //           defaultColor= {'#CACACA'}
+            //           shootColor= {'#FCE687'}
+            //           hoverColor= {'#86C899'}
+            //           hasLegend= {true}
+            //           legendPos= {[50, 420]}
+            //           hasName= {false}
+            //           popupContent= {this.popupContent}
+            //           // onClick= {this.onPolygonClick}
+            //           // onCloseClick= {this.onPolygonCloseClick}
+            //           // onMouseOver= {this.onPolygonMouseOver}
+            //           // onMouseOut= {this.onPolygonMouseOut}
+            //         />
+          }
         </MapContainer>
       </div>
     );

@@ -862,6 +862,14 @@ export default class Shoot extends Component {
     this.initialize(shootData);
   }
 
+  componentWillUnmount() {
+    if (this.frameId) {
+      cancelFrame(this.frameId);
+    }
+
+    this.shootCanvas.remove();
+  }
+
   componentWillReceiveProps(nextProps) {
     const self = this;
     const {shootFinish} = this.props;

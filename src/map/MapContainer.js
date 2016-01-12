@@ -1,6 +1,7 @@
 "use strict"
 
 import React, {Component, PropTypes} from 'react';
+import Maps from './Maps';
 import CommonProps from './CommonProps';
 import Shoot from './Shoot';
 import Container from './core/Container';
@@ -9,21 +10,15 @@ import {GeoPath} from './core/GeoPath';
 import {TileFunc} from './core/TileFunc';
 import ZoomControl from './core/ZoomControl';
 import {formatName} from './utils/FormatHelper';
+import Popup from './core/Popup';
+import {OrderedMap, Map} from 'immutable';
 import ChinaGeoOpt from '../data/china';
+import ChinaData from '../data/geojson/ChinaData';
+import ProvinceData from '../data/geojson/ProvinceData';
 
 let mapId = 'mapContainer';
 
 export default class MapContainer extends Component {
-  static childContextTypes = {
-    width: React.PropTypes.number,
-    height: React.PropTypes.number,
-    geoPath: React.PropTypes.func,
-    projection: React.PropTypes.func,
-    mapName: React.PropTypes.string,
-    shootData: React.PropTypes.array,
-    finish: React.PropTypes.bool,
-    mapId: React.PropTypes.string,
-  };
 
   static defaultProps = {
     width: 600,
@@ -31,7 +26,13 @@ export default class MapContainer extends Component {
     mapName: '',
     simplify: true,
     simplifyArea: 0,
-    hasShootLoop: false
+    hasShootLoop: false,
+    nameKey: 'name',
+    valueKey: 'value',
+    hasName: false,
+    hasLegend: false,
+    shootColor: '#86C899',
+    hoverColor: '#FCE687',
   };
 
   constructor(props) {
@@ -45,20 +46,8 @@ export default class MapContainer extends Component {
       scale: null,
       // 缩放频率
       times: 1,
-      finish: false
-    };
-  }
-
-  getChildContext() {
-    return {
-      width: this.width,
-      height: this.height,
-      finish: this.finish,
-      shootData: this.shootData,
-      geoPath: this.geoPath,
-      projection: this.projection,
-      mapName: this.mapName,
-      mapId: this.mapId
+      finish: false,
+      showPopup: OrderedMap()
     };
   }
 
@@ -129,12 +118,85 @@ export default class MapContainer extends Component {
     })
   }
 
+  _onMouseOver(that, d, id, xy) {
+
+    const {
+      showPopup
+    } = this.state;
+
+    const {
+      onMouseOver
+    } = this.props;
+
+    if(onMouseOver)
+      onMouseOver(that, d, id);
+
+    let position = this.projection.invert([xy[0], xy[1]]);
+
+    let newPopup = showPopup.set(id, Map({
+      xPopup: position[0],
+      yPopup: position[1],
+      data: d
+    }));
+
+    this.setState({
+      showPopup: newPopup
+    })
+  }
+
+  _onMouseMove(that, d, id, xy) {
+
+    const {
+      showPopup
+    } = this.state;
+
+    const {
+      onMouseMove
+    } = this.props;
+
+    if(onMouseMove)
+      onMouseMove(that, d, id);
+
+    let position = this.projection.invert([xy[0], xy[1]]);
+
+    let newPopup = showPopup.set(id, Map({
+      xPopup: position[0],
+      yPopup: position[1],
+      data: d
+    }));
+
+    this.setState({
+      showPopup: newPopup
+    })
+  }
+
+  _onMouseOut(that, d, id) {
+
+    const {
+      showPopup
+    } = this.state;
+
+    const {
+      onMouseOut
+    } = this.props;
+
+    if(onMouseOut)
+      onMouseOut(that, d, id);
+
+    let newPopup = showPopup.delete(id);
+
+    this.setState({
+      showPopup: newPopup
+    })
+  }
+
   render() {
     const {
       mapName,
       scale,
       zoomTranslate,
-      finish
+      finish,
+      showPopup
     } = this.state;
 
     const {
@@ -149,17 +211,29 @@ export default class MapContainer extends Component {
       data,
       shootData,
       hasShootLoop,
-      shootDuration
+      shootDuration,
+      extData,
+      nameKey,
+      valueKey,
+      colorArr,
+      defaultColor,
+      shootColor,
+      hoverColor,
+      hasLegend,
+      legendPos,
+      hasName,
+      popupContent,
     } = this.props;
 
-    let height = width * 3 / 4;
+    const center = ChinaGeoOpt.provinceIndex[mapName].center;
 
+    let popup, geoData;
+    let height = width * 3 / 4;
     let styleContainer = {
       position: 'relative',
       width: width,
       height: height
     };
-
     let styleWarning = {
       position: 'absolute',
       top: height / 2 - 25,
@@ -174,12 +248,13 @@ export default class MapContainer extends Component {
       )
     }
 
-    const center = ChinaGeoOpt.provinceIndex[mapName].center;
-
     let onZoom = this.onZoom.bind(this);
     let zoomIn = this.zoomIn.bind(this);
     let zoomOut = this.zoomOut.bind(this);
     let handleFinish = this.handleFinish.bind(this);
+    let onMouseOver = this._onMouseOver.bind(this);
+    let onMouseMove = this._onMouseMove.bind(this);
+    let onMouseOut = this._onMouseOut.bind(this);
 
     // 初始地图位置
     let translate = [width / 2, height / 2] || this.props.translate;
@@ -195,21 +270,48 @@ export default class MapContainer extends Component {
       bounds: bounds
     });
 
-    let geo = GeoPath(proj);
-    this.projection = proj;
-    this.geoPath = geo;
-    this.mapName = mapName;
-
-    if (shootData) {
-      this.shootData = shootData;
+    if (mapName === '中国') {
+      geoData = ChinaData;
     } else {
-      this.shootData = [];
+      geoData = ProvinceData[mapName];
     }
 
-    this.finish = finish;
-    this.width = width;
-    this.height = height;
-    this.mapId = mapId;
+    let geo = GeoPath(proj);
+
+    this.projection = proj;
+
+    if(showPopup.size && popupContent) {
+      popup = showPopup.keySeq().toArray().map((d, i) => {
+        let xPopup = showPopup.get(d).get('xPopup');
+        let yPopup = showPopup.get(d).get('yPopup');
+        let popupData = showPopup.get(d).get('data');
+
+        let point = proj([xPopup, yPopup])
+
+        let currentData;
+
+        extData.forEach(item => {
+          let tempName = formatName(item[nameKey]);
+
+          if (tempName === popupData.properties.name) {
+            currentData = item;
+          }
+        })
+
+        let content = popupContent(currentData);
+
+        if (content) {
+          return  (
+            <Popup
+              key= {'Popup' + i}
+              x= {point[0]}
+              y= {point[1]}
+              contentPopup= {content}
+            />
+          )
+        }
+      })
+    }
 
     return (
       <div id={mapId} className={className} style= {styleContainer}>
@@ -221,6 +323,31 @@ export default class MapContainer extends Component {
           onZoom= {zoom ? onZoom : null}
           center= {center}
         >
+          <Maps
+            width= {width}
+            height= {height}
+            data= {extData}
+            nameKey= {nameKey}
+            valueKey= {valueKey}
+            colorArr= {colorArr}
+            defaultColor= {defaultColor}
+            shootColor= {shootColor}
+            hoverColor= {hoverColor}
+            hasLegend= {hasLegend}
+            legendPos= {legendPos}
+            hasName= {hasName}
+            popupContent= {popupContent}
+            finish= {finish}
+            shootData= {shootData || []}
+            mapName= {mapName}
+            geoPath= {geo}
+            geoData= {geoData}
+            projection= {proj}
+            mapId= {mapId}
+            onMouseOver= {onMouseOver}
+            onMouseMove= {onMouseMove}
+            onMouseOut= {onMouseOut}
+          />
         </Container>
 
         {zoom ?
@@ -244,6 +371,7 @@ export default class MapContainer extends Component {
           /> :
           null
         }
+        {popup}
       </div>
     )
   }

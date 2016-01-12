@@ -32,7 +32,7 @@ export default class PolygonSet extends Component {
 
     let tempDataArr = [];
     let polygons, polygonData, maxData, minData, color, temp;
-    let hasDefaultColor = true;
+    let hasDefaultColor;
 
     if(geoData.type === 'FeatureCollection') {
       polygonData = [];
@@ -70,6 +70,8 @@ export default class PolygonSet extends Component {
       polygons = polygonData.map((d, i) => {
         let oldColor;
 
+        hasDefaultColor = true;
+
         if (data.length > 0) {
           data.map(item => {
             let name = formatName(item[nameKey]);
@@ -93,8 +95,6 @@ export default class PolygonSet extends Component {
           color = defaultColor;
         }
 
-        hasDefaultColor = true;
-
         oldColor = color;
 
         if (shootFinish) {
@@ -112,6 +112,7 @@ export default class PolygonSet extends Component {
             key= {'remaps_polygon' + i}
             mapId= {mapId}
             color= {color}
+            hasDefaultColor= {hasDefaultColor}
             hoverColor= {hoverColor}
             projection= {projection}
             geoData= {d}

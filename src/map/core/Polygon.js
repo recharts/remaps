@@ -1,7 +1,6 @@
 "use strict";
 
 import React, {Component, PropTypes} from 'react';
-import {OrderedMap, Map} from 'immutable';
 import Popup from './Popup';
 import {isTooltipUpdate} from './TooltipUpdate';
 
@@ -9,10 +8,10 @@ export default class Polygon extends Component {
   static propTypes = {
     color: PropTypes.string,
     onMouseOut: PropTypes.func,
+    onMouseMove: PropTypes.func,
     onMouseOver: PropTypes.func,
     geoData: PropTypes.object,
     geoPath: PropTypes.func,
-    // onClick
   };
 
   constructor(props) {
@@ -49,6 +48,7 @@ export default class Polygon extends Component {
       id,
       mapId,
       hoverColor,
+      hasDefaultColor,
       onMouseOut,
       onMouseOver,
       onClick
@@ -58,9 +58,11 @@ export default class Polygon extends Component {
 
     let xy = [e.clientX, e.pageY - this.getOffset(mapContainer).top];
 
-    this.setState({
-      fill: hoverColor
-    });
+    if (!hasDefaultColor) {
+      this.setState({
+        fill: hoverColor
+      });
+    }
 
     return onMouseOver(this, d, id, xy);
   }
@@ -73,6 +75,7 @@ export default class Polygon extends Component {
     } = this.props;
 
     const mapContainer = document.getElementById(mapId);
+
     let xy = [e.clientX, e.pageY - this.getOffset(mapContainer).top];
 
     return onMouseMove(this, d, id, xy);
@@ -83,7 +86,6 @@ export default class Polygon extends Component {
       id,
       color,
       onMouseOut,
-      // onClick
     } = this.props;
 
     this.setState({
@@ -101,7 +103,6 @@ export default class Polygon extends Component {
       geoPath,
       onMouseOut,
       onMouseOver,
-      // onClick
     } = this.props;
 
     const {fill} = this.state;
