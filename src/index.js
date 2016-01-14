@@ -1,4 +1,6 @@
 // map
+import 'ima.js-babel6-polyfill';
+// import 'babel-polyfill';
 
 import MapContainer from './map/MapContainer';
 

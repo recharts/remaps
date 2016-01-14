@@ -49,6 +49,16 @@ let shootData = [
     "to": "四川",
     "value": 13361
   },
+  {
+    "from": "浙江",
+    "to": "新疆",
+    "value": 13361
+  },
+  {
+    "from": "浙江",
+    "to": "西藏",
+    "value": 13361
+  },
 ];
 
 export default React.createClass({

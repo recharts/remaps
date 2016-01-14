@@ -82,6 +82,9 @@ export default class PolygonSet extends Component {
 
               if (maxData === minData)
                 color = colorArr[0];
+
+              if (item[valueKey] <= 0)
+                color = defaultColor;
             }
           })
         }

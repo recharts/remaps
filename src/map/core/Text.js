@@ -20,7 +20,9 @@ export default class Text extends Component {
     } = this.props;
 
     return <text x= {projection(geoData.properties.cp)[0]}
-                 y= {projection(geoData.properties.cp)[1]} >
+                 y= {projection(geoData.properties.cp)[1]}
+                 fontSize='12'
+                 fill='#333' >
              {geoData.properties.name}
            </text>
   }

@@ -870,7 +870,9 @@ export default class Shoot extends Component {
       cancelFrame(this.frameId);
     }
 
-    this.shootCanvas.remove();
+    if (this.shootCanvas && this.shootCanvas.parentNode) {
+      this.shootCanvas.parentNode.removeChild(this.shootCanvas);
+    }
   }
 
   componentWillReceiveProps(nextProps) {

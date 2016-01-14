@@ -12,10 +12,10 @@ export default class Svg extends Component {
     svgClassName: PropTypes.string
   };
 
-  static defaultProps = Object.assign(CommonProps, {
+  static defaultProps = {...CommonProps,
     svgClassName: 'remaps_container_svg',
     scaleExtent: [1 << 10, 1 << 28]
-  });
+  };
 
   constructor(props) {
     super (props);
