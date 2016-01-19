@@ -34,7 +34,7 @@ const newData = [
   {name: '上海', title: '浙江省 － 四川省', value: 7713, index: 27},
   {name: '浙江', title: '浙江省 － 四川省', value: 554, index: 28},
   {name: '吉林', title: '浙江省 － 四川省', value: 231, index: 29},
-  {name: '内蒙古', title: '浙江省 － 四川省', value: 3213, index: 30},
+  {name: '内蒙古自治区', title: '浙江省 － 四川省', value: 3213, index: 30},
   {name: '黑龙江', title: '浙江省 － 四川省', value: 4343, index: 31},
   {name: '台湾', title: '浙江省 － 四川省', value: 665, index: 32},
   {name: '香港', title: '浙江省 － 四川省', value: 4544, index: 33},
@@ -136,7 +136,7 @@ export default React.createClass({
           <option value="吉林">吉林</option>
           <option value="辽宁">辽宁</option>
           <option value="澳门">澳门</option>
-          <option value="内蒙古">内蒙古</option>
+          <option value="内蒙古自治区">内蒙古自治区</option>
           <option value="宁夏">宁夏</option>
           <option value="青海">青海</option>
           <option value="山西">山西</option>

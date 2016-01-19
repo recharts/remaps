@@ -225,7 +225,7 @@ export default class Shoot extends Component {
     var self = this;
     type = type || 'center';
     const {width, height, projection, ChinaGeoOpt} = this.props;
-    let location, loc;
+    let location, loc, tempName;
 
     if(!name){
       return;
@@ -238,8 +238,9 @@ export default class Shoot extends Component {
       }
     }
 
+    tempName = name.substr(0, 2);
     // 张家口市,张家界市，阿拉善盟, 阿拉尔市，内蒙古，黑龙江
-    if (name === '阿拉' || name === '张家' || name === '内蒙古' || name === '黑龙江') {
+    if (tempName === '阿拉' || tempName === '张家' || tempName === '内蒙' || tempName === '黑龙') {
       name = name.substr(0, 3);
     } else {
       name = name.substr(0, 2);
