@@ -41,6 +41,8 @@ export default class SouthSea extends Component {
         <line strokeWidth={'3px'} stroke={defaultColor} y2="158.5" x2="11.5" y1="172.5" x1="17.5" />
         <line strokeWidth={'3px'} stroke={defaultColor} y2="132.5" x2="39.5" y1="142.5" x1="24.5" />
         <line strokeWidth={'3px'} stroke={defaultColor} y2="98.5" x2="37.5" y1="113.5" x1="40.5" />
+
+        <text x="15" y="130" fill={defaultColor}>南海诸岛</text>
        </g>
     )
   }
