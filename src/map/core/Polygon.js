@@ -1,8 +1,8 @@
 "use strict";
 
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import Popup from './Popup';
-import {isTooltipUpdate} from './TooltipUpdate';
+import { isTooltipUpdate } from './TooltipUpdate';
 
 export default class Polygon extends Component {
   static propTypes = {
@@ -15,7 +15,7 @@ export default class Polygon extends Component {
   };
 
   constructor(props) {
-    super (props);
+    super(props);
 
     this.state = {
       fill: this.props.color
@@ -32,6 +32,18 @@ export default class Polygon extends Component {
         fill: nextProps.color
       });
     }
+  }
+
+  /**
+   * 地图区块被点击的回调
+   */
+  handleClick(d, e) {
+    const {
+      id,
+      onClick
+    } = this.props;
+
+    return onClick && onClick(this, d, id, e);
   }
 
   handleMouseOver(d, e) {
@@ -76,7 +88,7 @@ export default class Polygon extends Component {
     return onMouseOut(this, d, id);
   }
 
-  render () {
+  render() {
     const {
       id,
       color,
@@ -86,14 +98,15 @@ export default class Polygon extends Component {
       onMouseOver,
     } = this.props;
 
-    const {fill} = this.state;
+    const { fill } = this.state;
 
-    return <path d= {geoPath(geoData)}
-                 fill= {fill}
-                 stroke= {'#fff'}
-                 strokeWidth= {'1'}
-                 onMouseOver={this.handleMouseOver.bind(this, geoData)}
-                 onMouseMove={this.handleMouseMove.bind(this, geoData)}
-                 onMouseOut= {this.handleMouseOut.bind(this, geoData)} />
+    return <path d={geoPath(geoData)}
+      fill={fill}
+      stroke={'#fff'}
+      strokeWidth={'1'}
+      onClick={this.handleClick.bind(this, geoData)}
+      onMouseOver={this.handleMouseOver.bind(this, geoData)}
+      onMouseMove={this.handleMouseMove.bind(this, geoData)}
+      onMouseOut={this.handleMouseOut.bind(this, geoData)} />
   }
 }

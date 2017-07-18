@@ -1,17 +1,17 @@
 "use strict"
 
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import Maps from './Maps';
 import CommonProps from './CommonProps';
 import Shoot from './Shoot';
 import Container from './core/Container';
-import {Projection as projectionFunc} from './core/Projection';
-import {GeoPath} from './core/GeoPath';
-import {TileFunc} from './core/TileFunc';
+import { Projection as projectionFunc } from './core/Projection';
+import { GeoPath } from './core/GeoPath';
+import { TileFunc } from './core/TileFunc';
 import ZoomControl from './core/ZoomControl';
-import {formatName} from './utils/FormatHelper';
+import { formatName } from './utils/FormatHelper';
 import Popup from './core/Popup';
-import {OrderedMap, Map} from 'immutable';
+import { OrderedMap, Map } from 'immutable';
 import ChinaGeoOpt from '../data/china';
 import ChinaData from '../data/geojson/ChinaData';
 import ProvinceData from '../data/geojson/ProvinceData';
@@ -50,7 +50,7 @@ export default class MapContainer extends Component {
   }
 
   componentWillMount() {
-    const {mapName} = this.state;
+    const { mapName } = this.state;
 
     if (ChinaGeoOpt.provinceIndex[mapName]) {
       this.setState({
@@ -114,7 +114,7 @@ export default class MapContainer extends Component {
     })
   }
 
-  getOffset (el) {
+  getOffset(el) {
     const box = el.getBoundingClientRect();
 
     return {
@@ -133,7 +133,7 @@ export default class MapContainer extends Component {
       onMouseOver
     } = this.props;
 
-    if(onMouseOver)
+    if (onMouseOver)
       onMouseOver(that, d, id);
 
     const mapContainer = this.refs.mapContainer;
@@ -163,7 +163,7 @@ export default class MapContainer extends Component {
       onMouseMove
     } = this.props;
 
-    if(onMouseMove)
+    if (onMouseMove)
       onMouseMove(that, d, id);
 
     const mapContainer = this.refs.mapContainer;
@@ -193,7 +193,7 @@ export default class MapContainer extends Component {
       onMouseOut
     } = this.props;
 
-    if(onMouseOut)
+    if (onMouseOut)
       onMouseOut(that, d, id);
 
     let newPopup = showPopup.delete(id);
@@ -236,6 +236,7 @@ export default class MapContainer extends Component {
       legendPos,
       hasName,
       popupContent,
+      onClick
     } = this.props;
 
     const center = ChinaGeoOpt.provinceIndex[mapName].center;
@@ -255,8 +256,8 @@ export default class MapContainer extends Component {
 
     if (!scale) {
       return (
-        <div ref="mapContainer" className={className} style= {styleContainer}>
-          <p className="Warning" style= {styleWarning}>目前暂只支持中国以及中国各省份的地图！</p>
+        <div ref="mapContainer" className={className} style={styleContainer}>
+          <p className="Warning" style={styleWarning}>目前暂只支持中国以及中国各省份的地图！</p>
         </div>
       )
     }
@@ -293,7 +294,7 @@ export default class MapContainer extends Component {
 
     this.projection = proj;
 
-    if(showPopup.size && popupContent) {
+    if (showPopup.size && popupContent) {
       popup = showPopup.keySeq().toArray().map((d, i) => {
         let xPopup = showPopup.get(d).get('xPopup');
         let yPopup = showPopup.get(d).get('yPopup');
@@ -314,12 +315,12 @@ export default class MapContainer extends Component {
         let content = popupContent(currentData);
 
         if (content) {
-          return  (
+          return (
             <Popup
-              key= {'Popup' + i}
-              x= {point[0]}
-              y= {point[1]}
-              contentPopup= {content}
+              key={'Popup' + i}
+              x={point[0]}
+              y={point[1]}
+              contentPopup={content}
             />
           )
         }
@@ -327,59 +328,60 @@ export default class MapContainer extends Component {
     }
 
     return (
-      <div ref="mapContainer" className={className} style= {styleContainer}>
+      <div ref="mapContainer" className={className} style={styleContainer}>
         <Container
           {...this.props}
-          width= {width}
-          height= {height}
-          projection = {proj}
-          onZoom= {zoom ? onZoom : null}
-          center= {center}
+          width={width}
+          height={height}
+          projection={proj}
+          onZoom={zoom ? onZoom : null}
+          center={center}
         >
           <Maps
-            width= {width}
-            height= {height}
-            data= {extData}
-            nameKey= {nameKey}
-            valueKey= {valueKey}
-            colorArr= {colorArr}
-            defaultColor= {defaultColor}
-            shootColor= {shootColor}
-            hoverColor= {hoverColor}
-            hasLegend= {hasLegend}
-            legendPos= {legendPos}
-            hasName= {hasName}
-            popupContent= {popupContent}
-            finish= {finish}
-            shootData= {shootData || []}
-            mapName= {mapName}
-            geoPath= {geo}
-            geoData= {geoData}
-            projection= {proj}
-            onMouseOver= {onMouseOver}
-            onMouseMove= {onMouseMove}
-            onMouseOut= {onMouseOut}
+            width={width}
+            height={height}
+            data={extData}
+            nameKey={nameKey}
+            valueKey={valueKey}
+            colorArr={colorArr}
+            defaultColor={defaultColor}
+            shootColor={shootColor}
+            hoverColor={hoverColor}
+            hasLegend={hasLegend}
+            legendPos={legendPos}
+            hasName={hasName}
+            popupContent={popupContent}
+            finish={finish}
+            shootData={shootData || []}
+            mapName={mapName}
+            geoPath={geo}
+            geoData={geoData}
+            projection={proj}
+            onMouseOver={onMouseOver}
+            onMouseMove={onMouseMove}
+            onMouseOut={onMouseOut}
+            onClick={onClick}
           />
         </Container>
 
         {zoom ?
           <ZoomControl
-            zoomInClick= {zoomIn}
-            zoomOutClick= {zoomOut}
+            zoomInClick={zoomIn}
+            zoomOutClick={zoomOut}
           /> : null
         }
 
         {shootData ?
           <Shoot
-            width= {width}
-            height= {height}
-            mapName= {mapName}
-            shootData= {shootData}
-            hasShootLoop= {hasShootLoop}
-            shootDuration= {shootDuration}
-            projection= {proj}
-            shootFinish= {handleFinish}
-            ChinaGeoOpt= {ChinaGeoOpt}
+            width={width}
+            height={height}
+            mapName={mapName}
+            shootData={shootData}
+            hasShootLoop={hasShootLoop}
+            shootDuration={shootDuration}
+            projection={proj}
+            shootFinish={handleFinish}
+            ChinaGeoOpt={ChinaGeoOpt}
           /> :
           null
         }

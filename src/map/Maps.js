@@ -1,6 +1,6 @@
 "use strict"
 
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import PolygonSet from './PolygonSet';
 import TextSet from './TextSet';
 import SouthSea from './core/SouthSea';
@@ -42,50 +42,52 @@ export default class Maps extends Component {
       onMouseOver,
       onMouseMove,
       onMouseOut,
+      onClick
     } = this.props;
 
     return (
       <g className='Maps'>
         <PolygonSet
-          className= 'PolygonSet'
-          data= {data ? data : []}
-          nameKey= {nameKey}
-          valueKey= {valueKey}
-          shootData= {shootData}
-          shootFinish= {finish}
-          defaultColor= {defaultColor}
-          hoverColor= {hoverColor}
-          shootColor= {shootColor}
-          colorArr= {colorArr}
-          projection= {projection}
-          geoData= {geoData}
-          geoPath= {geoPath}
-          onMouseOver= {onMouseOver}
-          onMouseMove= {onMouseMove}
-          onMouseOut= {onMouseOut}
+          className='PolygonSet'
+          data={data ? data : []}
+          nameKey={nameKey}
+          valueKey={valueKey}
+          shootData={shootData}
+          shootFinish={finish}
+          defaultColor={defaultColor}
+          hoverColor={hoverColor}
+          shootColor={shootColor}
+          colorArr={colorArr}
+          projection={projection}
+          geoData={geoData}
+          geoPath={geoPath}
+          onMouseOver={onMouseOver}
+          onMouseMove={onMouseMove}
+          onMouseOut={onMouseOut}
+          onClick={onClick}
           {...this.state}
         />
 
         {hasLegend ?
-          <Legend width= {width}
-                  height= {height}
-                  defaultColor= {defaultColor}
-                  colorArr= {colorArr}
-                  legendPos= {legendPos} /> :
+          <Legend width={width}
+            height={height}
+            defaultColor={defaultColor}
+            colorArr={colorArr}
+            legendPos={legendPos} /> :
           null
         }
 
         {mapName === '中国' ?
-          <SouthSea width= {width} height= {height} defaultColor= {defaultColor} /> :
+          <SouthSea width={width} height={height} defaultColor={defaultColor} /> :
           null
         }
 
         {
           hasName ?
             <TextSet
-              className= 'TextSet'
-              projection= {projection}
-              geoData= {geoData}
+              className='TextSet'
+              projection={projection}
+              geoData={geoData}
               {...this.state}
             /> :
             null
