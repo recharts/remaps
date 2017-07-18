@@ -1,8 +1,8 @@
 "use strict"
 
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import Polygon from './core/Polygon';
-import {formatName} from './utils/FormatHelper';
+import { formatName } from './utils/FormatHelper';
 
 export default class PolygonSet extends Component {
   constructor(props) {
@@ -33,20 +33,20 @@ export default class PolygonSet extends Component {
     let polygons, polygonData, maxData, minData, color, temp;
     let hasDefaultColor;
 
-    if(geoData.type === 'FeatureCollection') {
+    if (geoData.type === 'FeatureCollection') {
       polygonData = [];
 
       // 遍历 features
-      geoData.features.forEach(function(d) {
+      geoData.features.forEach(function (d) {
         polygonData.push(d);
       })
-    }else if(geoData.type === 'Feature') {
+    } else if (geoData.type === 'Feature') {
       polygonData = geoData;
     }
 
-    if(polygonData) {
+    if (polygonData) {
       // 如果不是数组，将其转换成数组
-      if(!Array.isArray(polygonData))
+      if (!Array.isArray(polygonData))
         polygonData = [polygonData];
 
       if (data.length > 0) {
@@ -102,7 +102,7 @@ export default class PolygonSet extends Component {
         if (shootFinish) {
           color = oldColor;
         } else {
-          for (let i = 0; i < shootData.length; i ++) {
+          for (let i = 0; i < shootData.length; i++) {
             if (d.properties.name === formatName(shootData[i].from) || d.properties.name === formatName(shootData[i].to)) {
               color = shootColor;
             }
@@ -111,17 +111,17 @@ export default class PolygonSet extends Component {
 
         return (
           <Polygon
-            key= {'remaps_polygon' + i}
-            color= {color}
-            hasDefaultColor= {hasDefaultColor}
-            hoverColor= {hoverColor}
-            projection= {projection}
-            geoData= {d}
-            geoPath= {geoPath}
-            onClick= {onClick}
-            onMouseOver= {onMouseOver}
-            onMouseMove= {onMouseMove}
-            onMouseOut= {onMouseOut}
+            key={'remaps_polygon' + i}
+            color={color}
+            hasDefaultColor={hasDefaultColor}
+            hoverColor={hoverColor}
+            projection={projection}
+            geoData={d}
+            geoPath={geoPath}
+            onClick={onClick}
+            onMouseOver={onMouseOver}
+            onMouseMove={onMouseMove}
+            onMouseOut={onMouseOut}
           />
         )
       })
