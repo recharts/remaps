@@ -34,6 +34,9 @@ export default class Polygon extends Component {
     }
   }
 
+  /**
+   * 地图区块被点击的回调
+   */
   handleClick(d, e) {
     const {
       id,
