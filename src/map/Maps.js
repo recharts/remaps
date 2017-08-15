@@ -43,6 +43,7 @@ export default class Maps extends Component {
       onMouseMove,
       onMouseOut,
       onClick,
+      // 是否严格按照颜色排序
       sortableColor
     } = this.props;
 
