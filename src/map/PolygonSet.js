@@ -26,7 +26,8 @@ export default class PolygonSet extends Component {
       onMouseMove,
       onMouseOut,
       shootFinish,
-      shootData
+      shootData,
+      sortableColor
     } = this.props;
 
     let tempDataArr = [];
@@ -72,13 +73,18 @@ export default class PolygonSet extends Component {
         hasDefaultColor = true;
 
         if (data.length > 0) {
-          data.map(item => {
+          data.map((item, dataIndex) => {
             let name = formatName(item[nameKey]);
 
             if (name === d.properties.name) {
               hasDefaultColor = false;
               temp = Math.floor((colorArr.length - 1) * (item[valueKey] - minData) / (maxData - minData));
-              color = colorArr[temp];
+
+              if (sortableColor) {
+                color = colorArr[dataIndex] || defaultColor;
+              } else {
+                color = colorArr[temp];
+              }
 
               if (maxData === minData)
                 color = colorArr[0];

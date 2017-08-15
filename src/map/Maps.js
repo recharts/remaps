@@ -42,7 +42,8 @@ export default class Maps extends Component {
       onMouseOver,
       onMouseMove,
       onMouseOut,
-      onClick
+      onClick,
+      sortableColor
     } = this.props;
 
     return (
@@ -65,6 +66,7 @@ export default class Maps extends Component {
           onMouseMove={onMouseMove}
           onMouseOut={onMouseOut}
           onClick={onClick}
+          sortableColor={sortableColor}
           {...this.state}
         />
 

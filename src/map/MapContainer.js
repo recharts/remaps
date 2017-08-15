@@ -31,6 +31,8 @@ export default class MapContainer extends Component {
     hasLegend: false,
     shootColor: '#FCE687',
     hoverColor: '#86C899',
+    // 是否严格按照颜色排序
+    sortableColor: false,
   };
 
   constructor(props) {
@@ -236,7 +238,8 @@ export default class MapContainer extends Component {
       legendPos,
       hasName,
       popupContent,
-      onClick
+      onClick,
+      sortableColor
     } = this.props;
 
     const center = ChinaGeoOpt.provinceIndex[mapName].center;
@@ -361,6 +364,7 @@ export default class MapContainer extends Component {
             onMouseMove={onMouseMove}
             onMouseOut={onMouseOut}
             onClick={onClick}
+            sortableColor={sortableColor}
           />
         </Container>
 
