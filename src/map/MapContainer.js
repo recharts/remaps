@@ -7,7 +7,6 @@ import Shoot from './Shoot';
 import Container from './core/Container';
 import { Projection as projectionFunc } from './core/Projection';
 import { GeoPath } from './core/GeoPath';
-import { TileFunc } from './core/TileFunc';
 import ZoomControl from './core/ZoomControl';
 import { formatName } from './utils/FormatHelper';
 import Popup from './core/Popup';

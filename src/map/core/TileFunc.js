@@ -1,6 +1,6 @@
 "use strict";
 
-import {tile} from './d3.geo.tile.js';
+import { GeoTile } from './GeoTile.js';
 
 export function TileFunc (props) {
   const {
@@ -12,7 +12,7 @@ export function TileFunc (props) {
 
   let tileFunc;
 
-  tileFunc = tile()
+  tileFunc = GeoTile()
 
   if(scale) tileFunc.scale(scale);
   if(translate) tileFunc.translate(translate);
