@@ -7,6 +7,7 @@ import { isTooltipUpdate } from './TooltipUpdate';
 export default class Polygon extends Component {
   static propTypes = {
     color: PropTypes.string,
+    onClick: PropTypes.func,
     onMouseOut: PropTypes.func,
     onMouseMove: PropTypes.func,
     onMouseOver: PropTypes.func,
@@ -39,16 +40,16 @@ export default class Polygon extends Component {
    */
   handleClick(d, e) {
     const {
-      id,
+      key,
       onClick
     } = this.props;
 
-    return onClick && onClick(this, d, id, e);
+    return onClick && onClick(this, d, key, e);
   }
 
   handleMouseOver(d, e) {
     const {
-      id,
+      key,
       hoverColor,
       hasDefaultColor,
       onMouseOut,
@@ -62,21 +63,21 @@ export default class Polygon extends Component {
       });
     }
 
-    return onMouseOver(this, d, id, e);
+    return onMouseOver(this, d, key, e);
   }
 
   handleMouseMove(d, e) {
     const {
-      id,
+      key,
       onMouseMove
     } = this.props;
 
-    return onMouseMove(this, d, id, e);
+    return onMouseMove(this, d, key, e);
   }
 
-  handleMouseOut(d) {
+  handleMouseOut(d, e) {
     const {
-      id,
+      key,
       color,
       onMouseOut,
     } = this.props;
@@ -85,17 +86,14 @@ export default class Polygon extends Component {
       fill: color
     });
 
-    return onMouseOut(this, d, id);
+    return onMouseOut(this, d, key, e);
   }
 
   render() {
     const {
-      id,
       color,
       geoData,
       geoPath,
-      onMouseOut,
-      onMouseOver,
     } = this.props;
 
     const { fill } = this.state;

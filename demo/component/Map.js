@@ -85,6 +85,10 @@ export default React.createClass({
     });
   },
 
+  handleMapClick(a, b, e) {
+    console.log(a, b, e);
+  },
+
   popupContent(data) {
     if (data) {
       return (
@@ -169,6 +173,7 @@ export default React.createClass({
           hasLegend= {true}
           legendPos= {[50, 420]}
           popupContent= {this.popupContent}
+          onClick={this.handleMapClick}
         >
         </MapContainer>
       </div>

@@ -15,7 +15,6 @@ export default class Maps extends Component {
   }
 
   render() {
-
     const {
       data,
       nameKey,

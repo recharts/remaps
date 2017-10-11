@@ -60,6 +60,10 @@ export default React.createClass({
     }
   },
 
+  handleClick(a, b, e) {
+    console.log(a, b, e);
+  },
+
   render() {
     const width = 500;
 
@@ -119,6 +123,10 @@ export default React.createClass({
           legendPos= {[50, 420]}
           hasName= {false}
           popupContent= {this.popupContent}
+          onClick={this.handleClick}
+          // onMouseOver={this.handleClick}
+          // onMouseMove={this.handleClick}
+          // onMouseOut={this.handleClick}
         >
         </MapContainer>
       </div>

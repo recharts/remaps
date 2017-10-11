@@ -124,8 +124,46 @@ export default class MapContainer extends Component {
     }
   }
 
-  _onMouseOver(that, d, id, e) {
+  getCurrentData(data) {
+    const {
+      extData,
+      nameKey
+    } = this.props;
 
+    let currentData;
+
+    extData.forEach(item => {
+      let tempName = formatName(item[nameKey]);
+
+      if (tempName === data.properties.name) {
+        currentData = item;
+      }
+    });
+
+    return currentData;
+  }
+
+  getCurrentGeoData(data, color) {
+    const d = data ? (data.properties || {}) : {};
+    const newData = Object.assign(d, { color });
+
+    return newData;
+  }
+
+  _onClick(that, data, id, e) {
+    const {
+      extData,
+      nameKey,
+      onClick
+    } = this.props;
+
+    if (onClick) {
+      const currentData = this.getCurrentData(data);
+      onClick(currentData, data.properties, e);
+    }
+  }
+
+  _onMouseOver(that, d, id, e) {
     const {
       showPopup
     } = this.state;
@@ -134,8 +172,10 @@ export default class MapContainer extends Component {
       onMouseOver
     } = this.props;
 
-    if (onMouseOver)
-      onMouseOver(that, d, id);
+    if (onMouseOver) {
+      const currentData = this.getCurrentData(d);
+      onMouseOver(currentData, d.properties, e);
+    }
 
     const mapContainer = this.refs.mapContainer;
 
@@ -155,7 +195,6 @@ export default class MapContainer extends Component {
   }
 
   _onMouseMove(that, d, id, e) {
-
     const {
       showPopup
     } = this.state;
@@ -164,8 +203,10 @@ export default class MapContainer extends Component {
       onMouseMove
     } = this.props;
 
-    if (onMouseMove)
-      onMouseMove(that, d, id);
+    if (onMouseMove) {
+      const currentData = this.getCurrentData(d);
+      onMouseMove(currentData, d.properties, e);
+    }
 
     const mapContainer = this.refs.mapContainer;
 
@@ -184,8 +225,7 @@ export default class MapContainer extends Component {
     })
   }
 
-  _onMouseOut(that, d, id) {
-
+  _onMouseOut(that, d, id, e) {
     const {
       showPopup
     } = this.state;
@@ -194,8 +234,10 @@ export default class MapContainer extends Component {
       onMouseOut
     } = this.props;
 
-    if (onMouseOut)
-      onMouseOut(that, d, id);
+    if (onMouseOut) {
+      const currentData = this.getCurrentData(d);
+      onMouseOut(currentData, d.properties, e);
+    }
 
     let newPopup = showPopup.delete(id);
 
@@ -237,7 +279,6 @@ export default class MapContainer extends Component {
       legendPos,
       hasName,
       popupContent,
-      onClick,
       sortableColor
     } = this.props;
 
@@ -271,6 +312,7 @@ export default class MapContainer extends Component {
     let onMouseOver = this._onMouseOver.bind(this);
     let onMouseMove = this._onMouseMove.bind(this);
     let onMouseOut = this._onMouseOut.bind(this);
+    let onClick = this._onClick.bind(this);
 
     // 初始地图位置
     let translate = [width / 2, height / 2] || this.props.translate;
