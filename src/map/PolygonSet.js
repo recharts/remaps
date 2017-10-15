@@ -11,6 +11,7 @@ export default class PolygonSet extends Component {
 
   render() {
     const {
+      mapName,
       data,
       nameKey,
       valueKey,
@@ -53,9 +54,9 @@ export default class PolygonSet extends Component {
       if (data.length > 0) {
         maxData = polygonData.map((d, i) => {
           data.forEach(item => {
-            let tempName = formatName(item[nameKey]);
+            let tempName = formatName(item[nameKey], mapName);
 
-            if (tempName === d.properties.name) {
+            if (tempName === formatName(d.properties.name, mapName)) {
               tempDataArr.push(item[valueKey]);
             }
           })
@@ -74,9 +75,9 @@ export default class PolygonSet extends Component {
 
         if (data.length > 0) {
           data.map((item, dataIndex) => {
-            let name = formatName(item[nameKey]);
+            let name = formatName(item[nameKey], mapName);
 
-            if (name === d.properties.name) {
+            if (name === formatName(d.properties.name, mapName)) {
               hasDefaultColor = false;
               temp = Math.floor((colorArr.length - 1) * (item[valueKey] - minData) / (maxData - minData));
 
@@ -109,7 +110,7 @@ export default class PolygonSet extends Component {
           color = oldColor;
         } else {
           for (let i = 0; i < shootData.length; i++) {
-            if (d.properties.name === formatName(shootData[i].from) || d.properties.name === formatName(shootData[i].to)) {
+            if (formatName(d.properties.name, mapName) === formatName(shootData[i].from, mapName) || formatName(d.properties.name, mapName) === formatName(shootData[i].to, mapName)) {
               color = shootColor;
             }
           }

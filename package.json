@@ -1,6 +1,6 @@
 {
   "name": "remaps",
-  "version": "0.1.4",
+  "version": "1.0.0",
   "description": "React maps",
   "main": "src/index.js",
   "keywords": [
@@ -18,8 +18,8 @@
   },
   "homepage": "https://github.com/recharts/remaps.git",
   "peerDependencies": {
-    "react": "0.14.3",
-    "react-dom": "0.14.3"
+    "react": "15.3.2",
+    "react-dom": "15.3.2"
   },
   "dependencies": {
     "d3": "^3.5.5",
@@ -43,8 +43,8 @@
     "isparta": "4.0.0",
     "mocha": "2.3.4",
     "node-libs-browser": "0.5.3",
-    "react": "0.14.3",
-    "react-dom": "0.14.3",
+    "react": "15.3.2",
+    "react-dom": "15.3.2",
     "react-hot-loader": "1.3.0",
     "react-router": "1.0.3",
     "require-dir": "0.3.0",

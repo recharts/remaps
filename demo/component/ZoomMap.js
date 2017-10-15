@@ -45,8 +45,8 @@ export default React.createClass({
 
   getInitialState() {
     return {
-      value: '中国',
-      mapName: '中国',
+      value: '世界',
+      mapName: '世界',
     };
   },
 

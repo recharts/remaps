@@ -8,12 +8,14 @@ import Container from './core/Container';
 import { Projection as projectionFunc } from './core/Projection';
 import { GeoPath } from './core/GeoPath';
 import ZoomControl from './core/ZoomControl';
-import { formatName } from './utils/FormatHelper';
+import { formatName, formatProvinceName } from './utils/FormatHelper';
 import Popup from './core/Popup';
 import { OrderedMap, Map } from 'immutable';
 import ChinaGeoOpt from '../data/china';
-import ChinaData from '../data/geojson/ChinaData';
-import ProvinceData from '../data/geojson/ProvinceData';
+// import ChinaData from '../data/geojson/ChinaData';
+// import ProvinceData from '../data/geojson/ProvinceData';
+// import { ChinaData, ProvinceData } from 'china-map-geojson';
+// import WorldData from 'world-map-geojson';
 
 export default class MapContainer extends Component {
 
@@ -38,7 +40,7 @@ export default class MapContainer extends Component {
     super(props);
 
     this.state = {
-      mapName: formatName(props.mapName),
+      mapName: formatName(props.mapName, props.mapName),
       // 移动
       zoomTranslate: null,
       // 比例尺-缩放
@@ -66,7 +68,7 @@ export default class MapContainer extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.mapName !== this.props.mapName) {
-      let newMapName = formatName(nextProps.mapName);
+      let newMapName = formatName(nextProps.mapName, nextProps.mapName);
 
       if (ChinaGeoOpt.provinceIndex[newMapName]) {
         this.setState({
@@ -125,6 +127,7 @@ export default class MapContainer extends Component {
   }
 
   getCurrentData(data) {
+    const { mapName } = this.state;
     const {
       extData,
       nameKey
@@ -133,21 +136,14 @@ export default class MapContainer extends Component {
     let currentData;
 
     extData.forEach(item => {
-      let tempName = formatName(item[nameKey]);
+      let tempName = formatName(item[nameKey], mapName);
 
-      if (tempName === data.properties.name) {
+      if (tempName === formatName(data.properties.name, mapName)) {
         currentData = item;
       }
     });
 
     return currentData;
-  }
-
-  getCurrentGeoData(data, color) {
-    const d = data ? (data.properties || {}) : {};
-    const newData = Object.assign(d, { color });
-
-    return newData;
   }
 
   _onClick(that, data, id, e) {
@@ -328,10 +324,13 @@ export default class MapContainer extends Component {
       bounds: bounds
     });
 
-    if (mapName === '中国') {
-      geoData = ChinaData;
+    if (mapName === '世界') {
+      geoData = this.props.geoData;
+    } else if (mapName === '中国') {
+      geoData = this.props.geoData;
     } else {
-      geoData = ProvinceData[mapName];
+      const provinceName = formatProvinceName(mapName);
+      geoData = provinceName ? this.props.geoData[provinceName] : null;
     }
 
     let geo = GeoPath(proj);
@@ -349,9 +348,9 @@ export default class MapContainer extends Component {
         let currentData;
 
         extData.forEach(item => {
-          let tempName = formatName(item[nameKey]);
+          let tempName = formatName(item[nameKey], mapName);
 
-          if (tempName === popupData.properties.name) {
+          if (tempName === formatName(popupData.properties.name, mapName)) {
             currentData = item;
           }
         })

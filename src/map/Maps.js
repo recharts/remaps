@@ -46,10 +46,15 @@ export default class Maps extends Component {
       sortableColor
     } = this.props;
 
+    if (!geoData) {
+      return null;
+    }
+
     return (
       <g className='Maps'>
         <PolygonSet
           className='PolygonSet'
+          mapName={mapName}
           data={data ? data : []}
           nameKey={nameKey}
           valueKey={valueKey}
