@@ -3,6 +3,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {MapContainer, Maps} from 'remaps';
+import { ChinaData, ProvinceData } from 'china-map-geojson';
+import WorldData from 'world-map-geojson';
 
 const newData = [
   {name: '甘肃', title: '浙江省 － 四川省', value: 4413, index: 0},
@@ -45,12 +47,26 @@ export default React.createClass({
 
   getInitialState() {
     return {
-      value: '世界',
-      mapName: '世界',
+      value: '中国',
+      mapName: '中国',
+      geoData: ChinaData,
     };
   },
 
   handleChange(e) {
+    if (e.target.value === '世界') {
+      this.setState({
+        geoData: WorldData,
+      });
+    } else if (e.target.value !== '中国') {
+      this.setState({
+        geoData: ProvinceData,
+      });
+    } else {
+      this.setState({
+        geoData: ChinaData,
+      });
+    }
     this.setState({
       value: e.target.value,
       mapName: e.target.value
@@ -100,6 +116,7 @@ export default React.createClass({
         <span>切换省份地图：</span>
         <select value={this.state.value} onChange={this.handleChange}>
           <option value="中国">中国</option>
+          <option value="世界">世界</option>
           <option value="安徽">安徽</option>
           <option value="北京">北京</option>
           <option value="重庆">重庆</option>
@@ -143,7 +160,8 @@ export default React.createClass({
           shootData= {shootData}
           hasShootLoop= {true}
           shootDuration= {3000}
-          mapName= {this.state.mapName}
+          mapName= {this.state.mapName} // 世界 中国 省份名称
+          geoData={this.state.geoData}
           extData= {newData}
           nameKey= {'name'}
           valueKey= {'value'}

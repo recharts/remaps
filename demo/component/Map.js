@@ -3,6 +3,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {MapContainer, Maps, Legend} from 'remaps';
+import { ChinaData, ProvinceData } from 'china-map-geojson';
+import WorldData from 'world-map-geojson';
 
 const newData = [
   {name: '甘肃省', title: '浙江省 － 四川省', value: 4413, index: 0},
@@ -163,6 +165,7 @@ export default React.createClass({
           hasShootLoop= {true}
           shootDuration= {3000}
           mapName= {this.state.mapName}
+          geoData={ChinaData}
           extData= {newData}
           nameKey= {'name'}
           valueKey= {'value'}
