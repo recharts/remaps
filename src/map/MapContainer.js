@@ -405,6 +405,7 @@ export default class MapContainer extends Component {
             onMouseOut={onMouseOut}
             onClick={onClick}
             sortableColor={sortableColor}
+            zoom={zoom}
           />
         </Container>
 

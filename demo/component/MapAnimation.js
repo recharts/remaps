@@ -161,6 +161,9 @@ export default React.createClass({
         <MapContainer
           className={"mapContainer"}
           width= {width}
+          shootData= {shootData}
+          hasShootLoop= {true}
+          shootDuration= {3000}
           mapName= {this.state.mapName}
           geoData={ChinaData}
           extData= {newData}
@@ -168,6 +171,7 @@ export default React.createClass({
           valueKey= {'value'}
           colorArr= {['#C6C9EE', '#B9BCED', '#AAADF0', '#8C90EF', '#6670F5']}
           defaultColor= {'#CACACA'}
+          shootColor= {'#86C899'}
           hoverColor= {'#FCE687'}
           hasLegend= {true}
           legendPos= {[50, 420]}

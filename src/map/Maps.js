@@ -4,6 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import PolygonSet from './PolygonSet';
 import TextSet from './TextSet';
 import SouthSea from './core/SouthSea';
+import Taiwan from './core/Taiwan';
 import Legend from './core/Legend';
 
 export default class Maps extends Component {
@@ -28,6 +29,7 @@ export default class Maps extends Component {
       legendPos,
       hasName,
       popupContent,
+      zoom,
 
       width,
       height,
@@ -84,7 +86,16 @@ export default class Maps extends Component {
           null
         }
 
-        {mapName === '中国' ?
+        {
+          // 台湾诸岛，钓鱼岛和赤尾屿，且在无法缩放时才展示，如果地图有缩放功能时，可以通过放大查看
+          mapName === '中国' && !zoom ?
+          <Taiwan width={width} height={height} defaultColor={defaultColor} /> :
+          null
+        }
+
+        {
+          // 南海诸岛
+          mapName === '中国' ?
           <SouthSea width={width} height={height} defaultColor={defaultColor} /> :
           null
         }
