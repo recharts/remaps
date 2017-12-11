@@ -19,13 +19,13 @@
   "homepage": "https://github.com/recharts/remaps.git",
   "peerDependencies": {
     "react": "15.3.2",
-    "react-dom": "15.3.2"
+    "react-dom": "15.3.2",
+    "china-map-geojson": "^0.0.11",
+    "world-map-geojson": "^0.0.3"
   },
   "dependencies": {
-    "china-map-geojson": "0.0.11",
     "d3": "^3.5.5",
-    "immutable": "^3.7.5",
-    "world-map-geojson": "0.0.3"
+    "immutable": "^3.7.5"
   },
   "devDependencies": {
     "babel-core": "6.3.21",
