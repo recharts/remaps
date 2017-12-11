@@ -174,7 +174,7 @@ export default React.createClass({
           shootColor= {'#86C899'}
           hoverColor= {'#FCE687'}
           hasLegend= {true}
-          legendPos= {[50, 420]}
+          legendPos= {[50, 20]}
           popupContent= {this.popupContent}
           onClick={this.handleMapClick}
         >

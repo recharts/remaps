@@ -170,7 +170,7 @@ export default React.createClass({
           defaultColor= {'#CACACA'}
           hoverColor= {'#FCE687'}
           hasLegend= {true}
-          legendPos= {[50, 420]}
+          legendPos= {[50, 20]}
           popupContent= {this.popupContent}
           onClick={this.handleMapClick}
         >

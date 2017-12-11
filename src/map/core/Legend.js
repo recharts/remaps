@@ -44,7 +44,7 @@ export default class Legend extends Component {
     })
 
     return (
-      <g clsssName="legends" transform={"translate(0, " + (450 - height) + ") scale(1, 1)"}>
+      <g clsssName="legends">
         <text fill={defaultColor} transform={"translate(" + (legendX - 25) + "," + (height - legendY + 12) + ")"}>低</text>
         {legends}
         <text fill={defaultColor} transform={"translate(" + (legendX + 25 + legendWidth) + "," + (height - legendY + 12) + ")"}>高</text>
