@@ -1,8 +1,8 @@
 {
   "name": "remaps",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "React maps",
-  "main": "src/index.js",
+  "main": "lib/index",
   "keywords": [
     "react",
     "reactjs",
@@ -28,6 +28,7 @@
     "immutable": "^3.7.5"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "6.3.21",
     "babel-eslint": "5.0.0-beta6",
     "babel-loader": "6.2.0",
@@ -51,13 +52,23 @@
     "react-router": "1.0.3",
     "require-dir": "0.3.0",
     "webpack": "1.12.9",
-    "webpack-dev-server": "1.14.0"
+    "webpack-dev-server": "1.14.0",
+    "china-map-geojson": "^1.0.1",
+    "world-map-geojson": "^1.0.0"
   },
   "scripts": {
     "demo": "./node_modules/.bin/webpack-dev-server --host 0.0.0.0 --progress --port 3000  --colors --content-base demo --hot --inline --config demo/webpack.config.js",
     "test": "./node_modules/.bin/mocha --compilers js:babel/register --recursive",
     "test-cov": "./node_modules/.bin/babel-node ./node_modules/.bin/isparta --report html cover _mocha -- --recursive",
-    "lint": "./node_modules/.bin/eslint src test"
+    "lint": "./node_modules/.bin/eslint src test",
+    "build": "rm -rf lib && babel src --out-dir lib",
+    "prepublish": "npm run build"
   },
+  "files": [
+    "*.md",
+    "demo",
+    "lib",
+    "src"
+  ],
   "license": "MIT"
 }
