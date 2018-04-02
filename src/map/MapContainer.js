@@ -12,10 +12,6 @@ import { formatName, formatProvinceName } from './utils/FormatHelper';
 import Popup from './core/Popup';
 import { OrderedMap, Map } from 'immutable';
 import ChinaGeoOpt from '../data/china';
-// import ChinaData from '../data/geojson/ChinaData';
-// import ProvinceData from '../data/geojson/ProvinceData';
-// import { ChinaData, ProvinceData } from 'china-map-geojson';
-// import WorldData from 'world-map-geojson';
 
 export default class MapContainer extends Component {
 
@@ -48,7 +44,9 @@ export default class MapContainer extends Component {
       // 缩放频率
       times: 1,
       finish: false,
-      showPopup: OrderedMap()
+      showPopup: OrderedMap(),
+      chinaGeoData: null,
+      worldGeoData: null,
     };
   }
 
@@ -66,6 +64,10 @@ export default class MapContainer extends Component {
     }
   }
 
+  componentDidMount() {
+    this.getRequestGeoData();
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.mapName !== this.props.mapName) {
       let newMapName = formatName(nextProps.mapName, nextProps.mapName);
@@ -81,6 +83,50 @@ export default class MapContainer extends Component {
           scale: null
         });
       }
+
+      this.getRequestGeoData();
+    }
+  }
+
+  componentWillUnmount() {
+    // 彻底销毁，防止内存泄漏
+
+    if (this.chinaGeoData) {
+      document.body.removeChild(this.chinaGeoData);
+      this.chinaGeoData = null;
+    }
+
+    if (this.worldGeoData) {
+      document.body.removeChild(this.worldGeoData);
+      this.worldGeoData = null;
+    }
+  }
+
+  getRequestGeoData() {
+    if (!this.chinaGeoData) {
+      this.chinaGeoData = document.createElement('script');
+      this.chinaGeoData.type = 'text/javascript';
+      this.chinaGeoData.async = true;
+      this.chinaGeoData.src = 'https://unpkg.com/china-map-geojson@1.0.3/umd/china-map-geojson.min.js';
+      this.chinaGeoData.onload = () => {
+        this.setState({
+          chinaGeoData: window["china-map-geojson"],
+        });
+      };
+      document.body.appendChild(this.chinaGeoData);
+    }
+
+    if (!this.worldGeoData) {
+      this.worldGeoData = document.createElement('script');
+      this.worldGeoData.type = 'text/javascript';
+      this.worldGeoData.async = true;
+      this.worldGeoData.src = 'https://unpkg.com/world-map-geojson@1.0.1/umd/world-map-geojson.min.js';
+      this.worldGeoData.onload = () => {
+        this.setState({
+          worldGeoData: window["world-map-geojson"],
+        });
+      };
+      document.body.appendChild(this.worldGeoData);
     }
   }
 
@@ -242,6 +288,33 @@ export default class MapContainer extends Component {
     })
   }
 
+  getGeoData(mapName) {
+    let geoData;
+
+    if (this.props.geoData) {
+      if (mapName === '世界') {
+        geoData = this.props.geoData;
+      } else if (mapName === '中国') {
+        geoData = this.props.geoData;
+      } else {
+        const provinceName = formatProvinceName(mapName);
+        geoData = provinceName ? this.props.geoData[provinceName] : null;
+      }
+    } else {
+      if (mapName === '世界') {
+        geoData = this.state.worldGeoData;
+      } else if (mapName === '中国') {
+        geoData = this.state.chinaGeoData && this.state.chinaGeoData.ChinaData;
+      } else {
+        const provinceName = formatProvinceName(mapName);
+        geoData = this.state.chinaGeoData && this.state.chinaGeoData.ProvinceData;
+        geoData = provinceName ? (geoData || {})[provinceName] : null;
+      }
+    }
+
+    return geoData;
+  }
+
   render() {
     const {
       mapName,
@@ -324,14 +397,7 @@ export default class MapContainer extends Component {
       bounds: bounds
     });
 
-    if (mapName === '世界') {
-      geoData = this.props.geoData;
-    } else if (mapName === '中国') {
-      geoData = this.props.geoData;
-    } else {
-      const provinceName = formatProvinceName(mapName);
-      geoData = provinceName ? this.props.geoData[provinceName] : null;
-    }
+    geoData = this.getGeoData(mapName);
 
     let geo = GeoPath(proj);
 

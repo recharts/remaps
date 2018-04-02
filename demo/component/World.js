@@ -3,8 +3,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {MapContainer, Maps, Legend} from 'remaps';
-import { ChinaData, ProvinceData } from 'china-map-geojson';
-import WorldData from 'world-map-geojson';
+// import { ChinaData, ProvinceData } from 'china-map-geojson';
+// import WorldData from 'world-map-geojson';
 
 const newData = [
   {name: 'India', title: 'India － China', value: 4413, index: 0},
@@ -59,7 +59,7 @@ export default React.createClass({
           className={"mapContainer"}
           width= {width}
           mapName= {this.state.mapName}
-          geoData={WorldData}
+          // geoData={WorldData}
           extData= {newData}
           nameKey= {'name'}
           valueKey= {'value'}

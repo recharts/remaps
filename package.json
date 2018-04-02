@@ -1,6 +1,6 @@
 {
   "name": "remaps",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "React maps",
   "main": "lib/index",
   "keywords": [
@@ -19,9 +19,7 @@
   "homepage": "https://github.com/recharts/remaps.git",
   "peerDependencies": {
     "react": "15.3.2",
-    "react-dom": "15.3.2",
-    "china-map-geojson": "^0.0.11",
-    "world-map-geojson": "^0.0.3"
+    "react-dom": "15.3.2"
   },
   "dependencies": {
     "d3": "^3.5.5",
@@ -52,9 +50,7 @@
     "react-router": "1.0.3",
     "require-dir": "0.3.0",
     "webpack": "1.12.9",
-    "webpack-dev-server": "1.14.0",
-    "china-map-geojson": "^1.0.1",
-    "world-map-geojson": "^1.0.0"
+    "webpack-dev-server": "1.14.0"
   },
   "scripts": {
     "demo": "./node_modules/.bin/webpack-dev-server --host 0.0.0.0 --progress --port 3000  --colors --content-base demo --hot --inline --config demo/webpack.config.js",

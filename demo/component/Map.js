@@ -3,8 +3,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {MapContainer, Maps, Legend} from 'remaps';
-import { ChinaData, ProvinceData } from 'china-map-geojson';
-import WorldData from 'world-map-geojson';
 
 const newData = [
   {name: '甘肃省', title: '浙江省 － 四川省', value: 4413, index: 0},
@@ -87,6 +85,19 @@ export default React.createClass({
     });
   },
 
+  handleMapNameClick() {
+    if (this.state.mapName === '中国') {
+      this.setState({
+        mapName: '世界',
+      });
+    }
+    if (this.state.mapName === '世界') {
+      this.setState({
+        mapName: '中国',
+      });
+    }
+  },
+
   handleMapClick(a, b, e) {
     console.log(a, b, e);
   },
@@ -120,7 +131,7 @@ export default React.createClass({
     return (
       <div className='simple-maps'>
 
-        <span>切换起止地点：</span>
+        <span onClick={this.handleMapNameClick}>切换起止地点：</span>
         <select value={this.state.areaValue} onChange={this.handleClick}>
           <option value="安徽">安徽</option>
           <option value="北京">北京</option>
@@ -162,7 +173,7 @@ export default React.createClass({
           className={"mapContainer"}
           width= {width}
           mapName= {this.state.mapName}
-          geoData={ChinaData}
+          // geoData={ChinaData}
           extData= {newData}
           nameKey= {'name'}
           valueKey= {'value'}
