@@ -65,7 +65,7 @@ export default class MapContainer extends Component {
   }
 
   componentDidMount() {
-    this.getRequestGeoData(this.props.geoDataUrl);
+    this.getRequestGeoData(this.props.geoDataUrl, this.props.mapName);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -84,7 +84,7 @@ export default class MapContainer extends Component {
         });
       }
 
-      this.getRequestGeoData(nextProps.geoDataUrl);
+      this.getRequestGeoData(nextProps.geoDataUrl, nextProps.mapName);
     }
   }
 
@@ -102,7 +102,7 @@ export default class MapContainer extends Component {
     }
   }
 
-  getRequestGeoData(geoDataUrl) {
+  getRequestGeoData(geoDataUrl, mapName) {
     let chinaUrl = 'https://unpkg.com/china-map-geojson@1.0.4/umd/china-map-geojson.min.js';
     let worldUrl = 'https://unpkg.com/world-map-geojson@1.0.2/umd/world-map-geojson.min.js';
 
@@ -116,7 +116,7 @@ export default class MapContainer extends Component {
       }
     }
 
-    if (!this.chinaGeoData) {
+    if (!this.chinaGeoData && mapName !== '世界') {
       this.chinaGeoData = document.createElement('script');
       this.chinaGeoData.type = 'text/javascript';
       this.chinaGeoData.async = true;
@@ -129,7 +129,7 @@ export default class MapContainer extends Component {
       document.body.appendChild(this.chinaGeoData);
     }
 
-    if (!this.worldGeoData) {
+    if (!this.worldGeoData && mapName === '世界') {
       this.worldGeoData = document.createElement('script');
       this.worldGeoData.type = 'text/javascript';
       this.worldGeoData.async = true;
