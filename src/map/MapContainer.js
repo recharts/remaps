@@ -26,6 +26,7 @@ export default class MapContainer extends Component {
     valueKey: 'value',
     hasName: false,
     hasLegend: false,
+    legendOrder: 'asc',
     shootColor: '#FCE687',
     hoverColor: '#86C899',
     // 是否严格按照颜色排序
@@ -359,6 +360,7 @@ export default class MapContainer extends Component {
       hoverColor,
       hasLegend,
       legendPos,
+      legendOrder,
       hasName,
       popupContent,
       sortableColor
@@ -471,6 +473,7 @@ export default class MapContainer extends Component {
             hoverColor={hoverColor}
             hasLegend={hasLegend}
             legendPos={legendPos}
+            legendOrder={legendOrder}
             hasName={hasName}
             popupContent={popupContent}
             finish={finish}

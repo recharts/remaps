@@ -1,6 +1,6 @@
 "use strict";
 
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 
 export default class Legend extends Component {
   static propTypes = {
@@ -12,19 +12,21 @@ export default class Legend extends Component {
   };
 
   constructor(props) {
-    super (props);
+    super(props);
   }
 
-  render () {
+  render() {
     const {
       width,
       height,
       colorArr,
       defaultColor,
-      legendPos
+      legendPos,
+      legendOrder
     } = this.props;
 
     let legendWidth, legendX, legendY;
+    let newColorArr = [].concat(colorArr);
 
     if (legendPos) {
       legendX = legendPos[0];
@@ -34,17 +36,22 @@ export default class Legend extends Component {
       legendY = 50;
     }
 
-    let legends = colorArr.map((d, i) => {
+    // asc | desc
+    if (legendOrder === 'desc') {
+      newColorArr.reverse();
+    }
+
+    let legends = (newColorArr || []).map((d, i) => {
       legendWidth = i * 20;
 
       return (
         <rect key={'legend' + i} width="20" height="15" fill={d}
-              transform={"translate(" + (legendX + i * 20) + "," + (height - legendY) + ")"} />
+          transform={"translate(" + (legendX + i * 20) + "," + (height - legendY) + ")"} />
       )
     })
 
     return (
-      <g clsssName="legends">
+      <g className="legends">
         <text fill={defaultColor} transform={"translate(" + (legendX - 25) + "," + (height - legendY + 12) + ")"}>低</text>
         {legends}
         <text fill={defaultColor} transform={"translate(" + (legendX + 25 + legendWidth) + "," + (height - legendY + 12) + ")"}>高</text>
