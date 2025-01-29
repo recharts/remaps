@@ -1,5 +1,7 @@
 # remaps
 
+# THIS LIBRARY IS NOT MAINTAINED
+
 React maps
 
 npm install
